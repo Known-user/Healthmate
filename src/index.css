@@ -1,13 +1,224 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  font-family: 'Roboto', sans-serif;
+  overflow-x:hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.discBox, .b-cover {
+  --mask:
+    radial-gradient(98.39px at 50% calc(100% - 132px),#000 99%,#0000 101%) calc(50% - 88px) 0/176px 100%,
+    radial-gradient(98.39px at 50% calc(100% + 88px),#0000 99%,#000 101%) 50% calc(100% - 44px)/176px 100% repeat-x;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
 }
+
+
+
+
+
+@use postcss-cssnext;
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+:root {
+    --EASE_INOUT_QUAD: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    --EASE_IN_QUAD: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    --EASE_OUT_QUAD: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    --COLOR_UI_PHARMACY: #237db5;
+    --loaderPill_DURATION: 1800ms;
+}
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.absCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loaderPill {
+    text-align: center;
+}
+
+.loaderPill-anim {
+    height: 160px;
+}
+
+.loaderPill-anim-bounce {
+    animation: loaderPillBounce var(--loaderPill_DURATION) linear infinite;
+}
+
+.loaderPill-anim-flop {
+    transform-origin: 50% 50%;
+    animation: loaderPillFlop var(--loaderPill_DURATION) linear infinite;
+}
+
+.loaderPill-pill {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 80px;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--COLOR_UI_PHARMACY);
+    background-image: linear-gradient(to right, var(--COLOR_UI_PHARMACY) 50%, #ffffff 50%);
+}
+
+.loaderPill-floor {
+    display: block;
+    text-align: center;
+}
+
+.loaderPill-floor-shadow {
+    display: inline-block;
+    width: 70px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: color(var(--COLOR_UI_PHARMACY) alpha(26%));
+    transform: translateY(-15px);
+    animation: loaderPillScale var(--loaderPill_DURATION) linear infinite;
+}
+
+.loaderPill-text {
+    font-weight: bold;
+    color: var(--COLOR_UI_PHARMACY);
+    text-transform: uppercase;
+}
+
+@keyframes loaderPillBounce {
+    0% {
+        transform: translateY(123px);
+        animation-timing-function: var(--EASE_OUT_QUAD);
+    }
+    25% {
+        transform: translateY(40px);
+        animation-timing-function: var(--EASE_IN_QUAD);
+    }
+    50% {
+        transform: translateY(120px);
+        animation-timing-function: var(--EASE_OUT_QUAD);
+    }
+    75% {
+        transform: translateY(20px);
+        animation-timing-function: var(--EASE_IN_QUAD);
+    }
+    100% {
+        transform: translateY(120px);
+    }
+}
+
+@keyframes loaderPillFlop {
+    0% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(450deg);
+    }
+    100% {
+        transform: rotate(720deg);
+    }
+}
+
+@keyframes loaderPillScale {
+    0%   {
+        transform: translateY(-15px) scale(1, 1);
+        animation-timing-function: var(--EASE_OUT_QUAD);
+    }
+    25%  {
+        transform: translateY(-15px) scale(0.7, 1);
+        animation-timing-function: var(--EASE_IN_QUAD);
+    }
+    50%  {
+        transform: translateY(-15px) scale(1, 1);
+        animation-timing-function: var(--EASE_OUT_QUAD);
+    }
+    75%  {
+        transform: translateY(-15px) scale(0.6, 1);
+        animation-timing-function: var(--EASE_IN_QUAD);
+    }
+    100% {
+        transform: translateY(-15px) scale(1, 1);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+    --field-border: 1px solid #EEEEEE;
+    --accent-color: #2962FF;
+    --sidebar-color: #F1F1F1;
+    --secondary-text: #aaaaaa;
+    --radius-sm: .25em;
+    --radius-md: .50em;
+  }
+  
+  .card-mockup:after {
+    content: '';
+    position: absolute;
+    width: 25%;
+    top: -.2em;
+    left: 37.5%;
+    height: .2em;
+    background: var(--accent-color);
+    border-top-left-radius: .2em;
+    border-top-right-radius: .2em;
+  }
+  .card-mockup:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 25%;
+    left: 37.5%;
+    height: 0.5em;
+    background: #2962ff36;
+    border-bottom-left-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
+    box-shadow: 0 2px 15px 5px #2962ff4d;
+  }
+  
+  .total-section:before {
+    content: '';
+    position: absolute;
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+    left: -0.8em;
+    top: -0.8em;
+    background: #FFFFFF;
+  }
+  .total-section:after {
+    content: '';
+    position: absolute;
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+    right: -0.8em;
+    top: -0.8em;
+    background: #FFFFFF;
+  }
+ 
