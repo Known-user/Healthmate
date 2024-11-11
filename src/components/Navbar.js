@@ -201,21 +201,202 @@
 
 
 
+// import React, { useEffect, useRef, useState } from 'react';
+// import { Link, useLocation } from 'react-router-dom';
+
+// const Navbar = () => {
+//   const location = useLocation();
+//   const isHomePage = location.pathname === '/' || location.pathname === '/home';
+
+//   const topnavRef = useRef(null);
+//   const headerRef = useRef(null);
+//   const [isResponsive, setIsResponsive] = useState(false);
+//   const [navbarWidth, setNavbarWidth] = useState(isHomePage ? 'w-[80%]' : 'w-full');
+
+//   const toggleNavBar = () => {
+//     setIsResponsive(!isResponsive);
+//   };
+
+//   const scrollFunction = () => {
+//     if (isHomePage && (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80)) {
+//       setNavbarWidth('w-full');
+//       headerRef.current.style.position = "fixed";
+//       headerRef.current.style.top = "0%";
+//     } else if (isHomePage) {
+//       setNavbarWidth('w-[80%]');
+//       headerRef.current.style.position = "fixed";
+//       headerRef.current.style.top = "2rem";
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (isHomePage) {
+//       window.onscroll = scrollFunction;
+//     } else {
+//       setNavbarWidth('w-full'); // Navbar stays full width on non-home pages
+//       headerRef.current.style.position = "fixed";
+//       headerRef.current.style.top = "0";
+//       window.onscroll = null; // Disable scroll listener on non-home pages
+//     }
+
+//     return () => {
+//       window.onscroll = null; // Cleanup on component unmount
+//     };
+//   }, [isHomePage]);
+
+//   const [activeItem, setActiveItem] = useState('home');
+//   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+//   const [isSubDropdownOpen, setIsSubDropdownOpen] = useState(false);
+
+//   const handleSetActive = (item) => {
+//     setActiveItem(item);
+//   };
+
+//   const handleDropdownEnter = () => setIsDropdownOpen(true);
+//   const handleDropdownLeave = () => setIsDropdownOpen(false);
+//   const handleSubDropdownEnter = () => setIsSubDropdownOpen(true);
+//   const handleSubDropdownLeave = () => setIsSubDropdownOpen(false);
+
+//   return (
+//     <>
+//       <div className="scroll-smooth">
+//         <header ref={headerRef} className="fixed top-8 w-full z-[9999] transition-all duration-500">
+//           <nav
+//             ref={topnavRef}
+//             className={`topnav bg-white ${navbarWidth} mx-auto h-20 shadow-lg flex justify-between items-center transition-all duration-500`}
+//           >
+//             <div className="flex items-center justify-between w-full px-12 py-4 transition-all duration-1000">
+//                 <h1 className="logo mr-auto">
+//                   <Link to="/" className="text-2xl font-bold text-gray-800">HealthMate</Link>
+//                 </h1>
+
+//               <nav className="hidden lg:flex space-x-6">
+//                 <ul className="flex space-x-6 items-center">
+//                   {['home', 'about', 'services', 'Woman Care', 'Baby Care'].map((item) => (
+//                     <li className="flex items-center" key={item}>
+//                       <Link
+//                         to={`/${item}`}
+//                         onClick={() => handleSetActive(item)}
+//                         className={`nav-link scrollto py-2 border-b-2 transition duration-300 ${activeItem === item ? 'text-blue-500 border-blue-500' : 'text-gray-700 border-transparent hover:text-blue-500 hover:border-blue-500'}`}
+//                       >
+//                         {item.charAt(0).toUpperCase() + item.slice(1)}
+//                       </Link>
+//                     </li>
+//                   ))}
+
+//                   {/* Main Dropdown */}
+//                   <li
+//                     className="relative group flex items-center"
+//                     onMouseEnter={handleDropdownEnter}
+//                     onMouseLeave={handleDropdownLeave}
+//                   >
+//                     <a
+//                       href="#"
+//                       className={`flex items-center py-2 border-b-2 transition duration-300 ${isDropdownOpen ? 'text-blue-500 border-blue-500' : 'text-gray-700 border-transparent hover:text-blue-500 hover:border-blue-500'}`}
+//                     >
+//                       <span>Personal Care</span>
+//                       <i className="fas fa-chevron-down ml-1"></i>
+//                     </a>
+//                     <ul
+//                       className={`absolute left-0 top-full bg-white shadow-lg rounded-md transition-all duration-300 transform ${isDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'} p-4 space-y-2 z-30`}
+//                       style={{ minWidth: '150px', borderRadius: '0.5rem' }}
+//                     >
+//                       <li>
+//                         <a href="#" className="block text-gray-700 hover:text-blue-500 transition-colors">
+//                           Skin Care
+//                         </a>
+//                       </li>
+//                       {/* Sub Dropdown */}
+//                       <li
+//                         className="relative group flex items-center"
+//                         onMouseEnter={handleSubDropdownEnter}
+//                         onMouseLeave={handleSubDropdownLeave}
+//                       >
+//                         <a href="#" className="flex items-center text-gray-700 hover:text-blue-500 transition-colors">
+//                           <span>Health Care</span>
+//                           <i className="fas fa-chevron-right ml-1"></i>
+//                         </a>
+//                         <ul
+//                           className={`absolute left-full top-0 bg-white shadow-lg rounded-lg transition-all duration-300 transform ${isSubDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'} p-4 space-y-2 z-30`}
+//                           style={{ minWidth: '160px' }}
+//                         >
+//                           <li>
+//                             <a href="#" className="block text-gray-700 hover:text-blue-500 transition-colors">
+//                               Sub Drop Down 1
+//                             </a>
+//                           </li>
+//                           <li>
+//                             <a href="#" className="block text-gray-700 hover:text-blue-500 transition-colors">
+//                               Sub Drop Down 2
+//                             </a>
+//                           </li>
+//                         </ul>
+//                       </li>
+//                       <li>
+//                         <a href="#" className="block text-gray-700 hover:text-blue-500 transition-colors">
+//                           Oral Care
+//                         </a>
+//                       </li>
+//                       <li>
+//                         <a href="#" className="block text-gray-700 hover:text-blue-500 transition-colors">
+//                           Sexual Wellness
+//                         </a>
+//                       </li>
+//                       <li>
+//                         <a href="#" className="block text-gray-700 hover:text-blue-500 transition-colors">
+//                           Elderly Care
+//                         </a>
+//                       </li>
+//                     </ul>
+//                   </li>
+
+//                   <li className="flex items-center">
+//                     <a
+//                       href="#contact"
+//                       onClick={() => handleSetActive('contact')}
+//                       className={`nav-link scrollto py-2 border-b-2 transition duration-300 ${activeItem === 'contact' ? 'text-blue-500 border-blue-500' : 'text-gray-700 border-transparent hover:text-blue-500 hover:border-blue-500'}`}
+//                     >
+//                       Contact
+//                     </a>
+//                   </li>
+//                 </ul>
+//               </nav>
+
+//               <div className="lg:hidden">
+//                 <i className="bi bi-list mobile-nav-toggle text-3xl cursor-pointer"></i>
+//               </div>
+
+//               <a href="#appointment" className="ml-6 px-4 py-1 bg-blue-500 text-white rounded-3xl hover:bg-blue-600">
+//                 <span className="hidden md:inline">Login</span>
+//               </a>
+//             </div>
+//           </nav>
+//         </header>
+//       </div>
+//     </>
+//   );
+// };
+
+
+// export default Navbar;
+
+
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/' || location.pathname === '/home';
-
   const topnavRef = useRef(null);
   const headerRef = useRef(null);
+
   const [isResponsive, setIsResponsive] = useState(false);
   const [navbarWidth, setNavbarWidth] = useState(isHomePage ? 'w-[80%]' : 'w-full');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
-  const toggleNavBar = () => {
-    setIsResponsive(!isResponsive);
-  };
+  const toggleNavBar = () => setIsResponsive(!isResponsive);
 
   const scrollFunction = () => {
     if (isHomePage && (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80)) {
@@ -229,18 +410,30 @@ const Navbar = () => {
     }
   };
 
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
+
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`https://api.example.com/search?q=${searchQuery}`);
+      const data = await response.json();
+      setSearchResults(data.results || []);
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  };
+
   useEffect(() => {
     if (isHomePage) {
       window.onscroll = scrollFunction;
     } else {
-      setNavbarWidth('w-full'); // Navbar stays full width on non-home pages
+      setNavbarWidth('w-full');
       headerRef.current.style.position = "fixed";
       headerRef.current.style.top = "0";
-      window.onscroll = null; // Disable scroll listener on non-home pages
+      window.onscroll = null;
     }
-
     return () => {
-      window.onscroll = null; // Cleanup on component unmount
+      window.onscroll = null;
     };
   }, [isHomePage]);
 
@@ -248,10 +441,7 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSubDropdownOpen, setIsSubDropdownOpen] = useState(false);
 
-  const handleSetActive = (item) => {
-    setActiveItem(item);
-  };
-
+  const handleSetActive = (item) => setActiveItem(item);
   const handleDropdownEnter = () => setIsDropdownOpen(true);
   const handleDropdownLeave = () => setIsDropdownOpen(false);
   const handleSubDropdownEnter = () => setIsSubDropdownOpen(true);
@@ -260,19 +450,30 @@ const Navbar = () => {
   return (
     <>
       <div className="scroll-smooth">
-        <header ref={headerRef} className="fixed top-8 w-full z-[9999] transition-all duration-500">
-          <nav
-            ref={topnavRef}
-            className={`topnav bg-white ${navbarWidth} mx-auto h-20 shadow-lg flex justify-between items-center transition-all duration-500`}
-          >
+        <header ref={headerRef} className="fixed top-8 w-full z-10 transition-all duration-500">
+          <nav ref={topnavRef} className={`topnav bg-white ${navbarWidth} mx-auto h-20 shadow-lg flex justify-between items-center transition-all duration-500`}>
             <div className="flex items-center justify-between w-full px-12 py-4 transition-all duration-1000">
-              <h1 className="logo mr-auto">
+              <h1 className="logo mr-4">
                 <Link to="/" className="text-2xl font-bold text-gray-800">HealthMate</Link>
               </h1>
+              
+              <form onSubmit={handleSearchSubmit} className="mr-auto flex items-center bg-gray-100 rounded-full px-4 py-2">
+  <input
+    type="text"
+    value={searchQuery}
+    onChange={handleSearchChange}
+    placeholder="Search for products..."
+    className="bg-transparent outline-none text-gray-700 placeholder-gray-500 flex-grow"
+  />
+  <button type="submit" className="text-blue-500 hover:text-blue-600 px-2">
+    <i className="fas fa-search"></i>
+  </button>
+</form>
+
 
               <nav className="hidden lg:flex space-x-6">
-                <ul className="flex space-x-6 items-center">
-                  {['home', 'about', 'services', 'Woman Care', 'Baby Care'].map((item) => (
+              <ul className="flex space-x-6 items-center">
+                   {['home', 'about', 'services', 'Woman Care', 'Baby Care'].map((item) => (
                     <li className="flex items-center" key={item}>
                       <Link
                         to={`/${item}`}
@@ -352,11 +553,11 @@ const Navbar = () => {
 
                   <li className="flex items-center">
                     <a
-                      href="#contact"
+                      href="/admin"
                       onClick={() => handleSetActive('contact')}
                       className={`nav-link scrollto py-2 border-b-2 transition duration-300 ${activeItem === 'contact' ? 'text-blue-500 border-blue-500' : 'text-gray-700 border-transparent hover:text-blue-500 hover:border-blue-500'}`}
                     >
-                      Contact
+                      Admin
                     </a>
                   </li>
                 </ul>
@@ -377,11 +578,7 @@ const Navbar = () => {
   );
 };
 
-
 export default Navbar;
-
-
-
 
 
 

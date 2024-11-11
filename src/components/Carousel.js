@@ -383,6 +383,7 @@
 
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 
 const PrevArrow = (props) => {
@@ -392,8 +393,8 @@ const PrevArrow = (props) => {
       onClick={onClick}
       style={{
         backgroundColor: 'white',
-        border: '1px solid #ccc', // Thin gray border
-        borderRadius: '0 50% 50% 0', // Rounded right border
+        border: '1px solid #ccc',
+        borderRadius: '0 50% 50% 0',
         padding: '0.5rem',
         position: 'absolute',
         top: '50%',
@@ -402,12 +403,12 @@ const PrevArrow = (props) => {
         fontSize: '1.5rem',
         color: 'gray',
         cursor: 'pointer',
-        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)', // Subtle shadow
-        transition: 'color 0.2s, box-shadow 0.2s', // Smooth hover effect
+        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)',
+        transition: 'color 0.2s, box-shadow 0.2s',
         zIndex: 1,
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.color = '#333'; // Darker color on hover
+        e.currentTarget.style.color = '#333';
         e.currentTarget.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.3)';
       }}
       onMouseLeave={(e) => {
@@ -427,8 +428,8 @@ const NextArrow = (props) => {
       onClick={onClick}
       style={{
         backgroundColor: 'white',
-        border: '1px solid #ccc', // Thin gray border
-        borderRadius: '50% 0 0 50%', // Rounded left border
+        border: '1px solid #ccc',
+        borderRadius: '50% 0 0 50%',
         padding: '0.5rem',
         position: 'absolute',
         top: '50%',
@@ -437,12 +438,12 @@ const NextArrow = (props) => {
         fontSize: '1.5rem',
         color: 'gray',
         cursor: 'pointer',
-        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)', // Subtle shadow
-        transition: 'color 0.2s, box-shadow 0.2s', // Smooth hover effect
+        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)',
+        transition: 'color 0.2s, box-shadow 0.2s',
         zIndex: 1,
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.color = '#333'; // Darker color on hover
+        e.currentTarget.style.color = '#333';
         e.currentTarget.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.3)';
       }}
       onMouseLeave={(e) => {
@@ -455,8 +456,8 @@ const NextArrow = (props) => {
   );
 };
 
-function Carousel({ arr ,slide }) {
-  const settings = {
+function Carousel({ arr, slide, type }) {
+  const settings1 = {
     infinite: true,
     slidesToShow: slide,
     slidesToScroll: 1,
@@ -481,22 +482,131 @@ function Carousel({ arr ,slide }) {
     ],
   };
 
-  return (
-    <div className="carousel-container">
-      <Slider {...settings}>
-        {arr.map((src, index) => (
-          <div key={index} className="p-2 outline-none border-none">
-            <img
-              src={src}
-              alt={`Slide ${index + 1}`}
-              className="w-full h-[300px] object-contain rounded-lg"
-            />
-          </div>
-        ))}
-      </Slider>
+  const SampleNextArrow = ({ onClick }) => (
+    <div
+      className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 cursor-pointer shadow-lg z-10"
+      onClick={onClick}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-5 w-5 text-gray-600"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
     </div>
+  );
+
+  const SamplePrevArrow = ({ onClick }) => (
+    <div
+      className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 cursor-pointer shadow-lg z-10"
+      onClick={onClick}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-5 w-5 text-gray-600"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15 19l-7-7 7-7"
+        />
+      </svg>
+    </div>
+  );
+
+  const settings = {
+    infinite: true,
+    slidesToShow: 6,
+    slidesToScroll: 3,
+    autoplay: false,
+    arrows: true,
+    prevArrow: <SamplePrevArrow />,
+    nextArrow: <SampleNextArrow />,
+    responsive: [
+      {
+        breakpoint: 1800,
+        settings: {
+          slidesToShow: 5,
+        },
+      },
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
+  };
+
+  function formatName(name) {
+    return name
+      .toLowerCase()                
+      .split('_')                    
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) 
+      .join(' ');                    
+  }
+  return (
+    <>
+      {type === 'img' ? (
+        <div className="carousel-container">
+          <Slider {...settings1}>
+            {arr.map((src, index) => (
+              <div key={index} className="p-2 outline-none border-none">
+                <img
+                  src={src}
+                  alt={`Slide ${index + 1}`}
+                  className="w-full h-[300px] object-contain rounded-lg"
+                />
+              </div>
+            ))}
+          </Slider>
+        </div>
+      ) : (
+        <div className="carousel-container">
+        <Slider {...settings}>
+          {arr.slice(0, 15).map((deal, index) => (
+            <Link to={`/${formatName(deal.name)}`} key={index} className="w-fit h-fit p-4 text-center">
+            <img src={deal.image} alt={formatName(deal.name)} className="w-40 h-40 mx-auto shadow-md mb-2 object-cover" />
+            <p className="text-sm font-medium">{formatName(deal.name)}</p>
+          </Link>
+          ))}
+        </Slider>
+        
+      </div>
+      
+      )}
+    </>
   );
 }
 
 export default Carousel;
 
+
+{/* <div key={index} className="relative p-2 outline-none border-none">
+            <img
+              src={deal.image}
+              alt={`Slide ${index + 1}`}
+              className="w-full h-[300px] object-contain rounded-lg"
+            />
+            <h1 className=''>{deal.name}</h1>
+          </div> */}

@@ -1,40 +1,101 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-function ProductHeader({ head,shead }) {
-  const categories = [
-    { name: "Prescription Medications", count: 25 },
-    { name: "Over-the-Counter (OTC)", count: 15 },
-    { name: "Vitamins & Supplements", count: 10 },
-    { name: "First Aid", count: 8 },
-    { name: "Personal Care", count: 12 },
-    { name: "Health Monitoring Devices", count: 4 },
-    { name: "Skin Care", count: 7 },
-    { name: "Digestive Health", count: 5 },
-    { name: "Cold & Allergy", count: 6 },
-    { name: "Pain Relief", count: 9 },
-  ];
+function ProductHeader({ head, shead, type }) {
+  const [currCategory, setCurrCategory] = useState(type);
+  const [categories, setCategories] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const dispatch = useDispatch();
 
-  const brands = [
-    { name: "Pfizer", count: 20 },
-    { name: "Johnson & Johnson", count: 15 },
-    { name: "Merck", count: 10 },
-    { name: "Bristol-Myers Squibb", count: 5 },
-    { name: "AbbVie", count: 8 },
-    { name: "GSK", count: 12 },
-    { name: "Roche", count: 6 },
-    { name: "AstraZeneca", count: 7 },
-    { name: "Sanofi", count: 4 },
-    { name: "Novartis", count: 11 },
-  ];
+  const fetchBrands = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/brand/all");
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      const data = await response.json();
+      setBrands(data.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error.message);
+    }
+  };
 
-  const size = [
-    { name: "XXS" },
-    { name: "XS" },
-    { name: "S" },
-    { name: "M " },
-    { name: "XL" },
-    { name: "XXL" },
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/category/all");
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      const data = await response.json();
+      setCategories(data.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error.message);
+    }
+  };
+  const fetchCategoryData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/category/${type}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      const data = await response.json();
+      setCategoryData(data.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error.message);
+    }
+  };
+
+  function formatHeaderName(name) {
+    return name
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  }
+
+  useEffect(() => {
+    fetchCategories();
+    fetchCategoryData();
+    fetchBrands();
+  }, []);
+  const sortedCategories = categories.slice().sort((a, b) => {
+    return a.name === currCategory ? -1 : b.name === currCategory ? 1 : 0;
+  });
+  // const categories = [
+  //   { name: "Prescription Medications", count: 25 },
+  //   { name: "Over-the-Counter (OTC)", count: 15 },
+  //   { name: "Vitamins & Supplements", count: 10 },
+  //   { name: "First Aid", count: 8 },
+  //   { name: "Personal Care", count: 12 },
+  //   { name: "Health Monitoring Devices", count: 4 },
+  //   { name: "Skin Care", count: 7 },
+  //   { name: "Digestive Health", count: 5 },
+  //   { name: "Cold & Allergy", count: 6 },
+  //   { name: "Pain Relief", count: 9 },
+  // ];
+
+  // const brands = [
+  //   { name: "Pfizer", count: 20 },
+  //   { name: "Johnson & Johnson", count: 15 },
+  //   { name: "Merck", count: 10 },
+  //   { name: "Bristol-Myers Squibb", count: 5 },
+  //   { name: "AbbVie", count: 8 },
+  //   { name: "GSK", count: 12 },
+  //   { name: "Roche", count: 6 },
+  //   { name: "AstraZeneca", count: 7 },
+  //   { name: "Sanofi", count: 4 },
+  //   { name: "Novartis", count: 11 },
+  // ];
+
+  const producttype = [
+    { name: "capsule" },
+    { name: "tablet" },
+    { name: "powder" },
+    { name: "sachet " },
+    { name: "other" },
   ];
   const products = [
     {
@@ -208,10 +269,23 @@ function ProductHeader({ head,shead }) {
               <h2 className="text-lg font-semibold border p-4 bg-gray-100">
                 Categories
               </h2>
-              <ul className="">
-                {categories.map((category, index) => (
-                  <li key={index} className="p-4 border-b">
-                    {category.name} {category.count}
+
+              <ul className="h-[630px] overflow-y-auto">
+                {sortedCategories.map((category, index) => (
+                  <li
+                    key={index}
+                    className={`p-4 border-b ${
+                      category.name === currCategory
+                        ? "bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold shadow-lg"
+                        : "bg-white text-gray-800"
+                    }`}
+                  >
+                    <Link
+                      to={`/${formatHeaderName(category.name)}`}
+                      className="block"
+                    >
+                      {formatHeaderName(category.name)} {category.count}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -241,10 +315,10 @@ function ProductHeader({ head,shead }) {
               </div>
               <div className="px-2">
                 <h2 className="text-lg font-semibold border-b mt-2 p-4">
-                  Sizes
+                  Product Type
                 </h2>
                 <ul className="h-56 overflow-y-auto">
-                  {size.map((category, index) => (
+                  {producttype.map((category, index) => (
                     <label
                       key={index}
                       className="flex items-center p-4 border-b"
@@ -298,12 +372,12 @@ function ProductHeader({ head,shead }) {
             <div className="bg-white rounded border flex-grow flex flex-col justify-between">
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {products.map((product) => (
-                    <div key={product.id} className="flex flex-col mb-4">
+                  {categoryData.map((product, index) => (
+                    <Link to="/description" onClick={() => dispatch({ type: 'PRODUCT', payload: product })} key={index} className="flex flex-col mb-4">
                       <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
                         <img
                           className="w-full h-64 object-cover transition-transform transform hover:scale-105"
-                          src={product.image}
+                          src={product.imageLink[0]}
                           alt="Product Image"
                         />
                         <div className="p-5 flex-grow flex flex-col">
@@ -362,7 +436,7 @@ function ProductHeader({ head,shead }) {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>

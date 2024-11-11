@@ -13,6 +13,7 @@ function Home() {
     <Discount />
     <LimitedTimeDeals/>
     <Special />
+    
     </>
   )
 }
