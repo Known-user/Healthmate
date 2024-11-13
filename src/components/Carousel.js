@@ -582,7 +582,7 @@ function Carousel({ arr, slide, type }) {
           </Slider>
         </div>
       ) : (
-        <div className="carousel-container">
+        <div id='category' className="carousel-container pb-32">
         <Slider {...settings}>
           {arr.slice(0, 15).map((deal, index) => (
             <Link to={`/${formatName(deal.name)}`} key={index} className="w-fit h-fit p-4 text-center">

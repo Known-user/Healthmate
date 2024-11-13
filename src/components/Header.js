@@ -234,19 +234,35 @@ import poster from "../Images/logo4.jpeg";
 
 const Header = () => {
   return (
-    <header className="discBox relative h-screen w-full bg-cover bg-fixed bg-no-repeat bg-center"
+    <header
+      className="discBox relative h-screen w-full bg-cover bg-fixed bg-no-repeat bg-center"
       style={{
         backgroundImage: "url('https://i.ibb.co/Pmy0dmn/bg.png')",
-        // backgroundImage: `url(${poster})`,
       }}
     >
-      <div className="absolute inset-0 bg-blue-600 opacity-30 z-0"></div>
-      <div className="absolute top-1/2 left-24 transform -translate-y-1/2 text-white z-10 w-96">
-        <h1 className="text-5xl capitalize">Your heading</h1>
-        <h4 className="mt-5 text-xl font-semibold">Your Subheading</h4>
-        <div className="mt-5">
-          <button className="px-6 py-3 border border-white text-white uppercase transition duration-500 hover:bg-black hover:text-white mr-4">Find More</button>
-          <button className="px-6 py-3 bg-white text-black uppercase transition duration-500 hover:bg-black hover:text-white">Shop Now</button>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 opacity-40 z-0"></div>
+      
+      {/* Main Content */}
+      <div className="absolute top-1/2 left-24 transform -translate-y-1/2 text-white z-10 w-4/5 max-w-md">
+        <h1 className="text-6xl font-bold capitalize tracking-wide leading-tight animate-fade-in-down">
+          Welcome to HealthMate
+        </h1>
+        <h4 className="mt-4 text-2xl font-light italic animate-fade-in-up">
+          Your Trusted Online Pharmacy
+        </h4>
+        <p className="mt-2 text-lg font-medium opacity-90">
+          Discover a wide range of health and wellness products at your fingertips.
+        </p>
+
+        {/* Buttons */}
+        <div className="mt-8 flex gap-4">
+          <a href="#about" className="inline-block px-8 py-3 border border-white text-white uppercase font-semibold rounded-full transition duration-500 hover:bg-white hover:text-blue-600 shadow-lg transform hover:scale-105">
+            Learn More
+          </a>
+          <a href="#products" className="inline-block px-8 py-3 bg-white text-blue-600 uppercase font-semibold rounded-full transition duration-500 hover:bg-blue-600 hover:text-white shadow-lg transform hover:scale-105">
+            Shop Now
+          </a>
         </div>
       </div>
     </header>
@@ -254,6 +270,8 @@ const Header = () => {
 };
 
 export default Header;
+
+
 
 
 

@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("Admin@123");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,17 +16,16 @@ const AdminLogin = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: { email, password },
+        body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      console.log(data)
 
       if (data.success) {
         dispatch({
           type: 'ADMIN_LOGGED_IN',
           payload: 'true',
         });
-        navigate('/admin');
+        navigate('/admindashboard');
       } else {
         alert('Login failed. Please check your credentials.');
       }

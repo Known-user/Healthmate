@@ -1,584 +1,186 @@
-// import React, { useState } from 'react';
-
-// const AuthPage = () => {
-//   const [isLogin, setIsLogin] = useState(true);
-
-//   return (
-//     <div className="min-h-screen flex items-center justify-center bg-[#020410]">
-//       <div className="fixed inset-0 bg-cover bg-center filter blur-[10px]" style={{ backgroundImage: "url('https://i.postimg.cc/prv7bv98/pexels-philippedonn-1114690.jpg')" }}></div>
-//       <div className="relative w-[75%] h-[550px] bg-cover bg-center rounded-lg" style={{ backgroundImage: "url('https://i.postimg.cc/prv7bv98/pexels-philippedonn-1114690.jpg')" }}>
-//         <div className="absolute inset-0 flex">
-//           <div className="w-1/2 p-10 flex flex-col justify-between text-[#e4e4e4]">
-//             <h2 className="text-3xl"><i className="bx bxl-firefox"></i> Dev Tech</h2>
-//             <div>
-//               <h2 className="text-4xl leading-tight">Welcome! <br /><span className="text-2xl">To Our New Website.</span></h2>
-//               <p className="text-lg my-5">We're delighted to have you here. If you need any assistance, feel free to reach out!</p>
-//             </div>
-//             <div className="flex space-x-3">
-//               <a href="#"><i className="bx bxl-facebook-circle text-xl transition-transform transform hover:scale-110"></i></a>
-//               <a href="#"><i className="bx bxl-instagram-alt text-xl transition-transform transform hover:scale-110"></i></a>
-//               <a href="#"><i className="bx bxl-linkedin-square text-xl transition-transform transform hover:scale-110"></i></a>
-//               <a href="#"><i className="bx bxl-dribbble text-xl transition-transform transform hover:scale-110"></i></a>
-//             </div>
-//           </div>
-//           <div className="w-1/2 relative flex justify-center items-center bg-transparent backdrop-blur-lg rounded-r-lg">
-//             <div className="w-full max-w-sm px-6">
-//               {isLogin ? (
-//                 <form action="#" className="space-y-6">
-//                   <h2 className="text-3xl text-center text-[#e4e4e4]">Login</h2>
-//                   <div className="relative border-b-2 border-[#e4e4e4] py-2">
-//                     <input type="text" required className="w-full bg-transparent outline-none text-[#e4e4e4] placeholder-transparent" />
-//                     <label className="absolute top-0 text-[#e4e4e4] transform -translate-y-1/2 pointer-events-none transition-all duration-200">Email</label>
-//                     <span className="absolute right-0 top-3 text-[#e4e4e4]"><i className="bx bxs-envelope"></i></span>
-//                   </div>
-//                   <div className="relative border-b-2 border-[#e4e4e4] py-2">
-//                     <input type="password" required className="w-full bg-transparent outline-none text-[#e4e4e4] placeholder-transparent" />
-//                     <label className="absolute top-0 text-[#e4e4e4] transform -translate-y-1/2 pointer-events-none transition-all duration-200">Password</label>
-//                     <span className="absolute right-0 top-3 text-[#e4e4e4]"><i className="bx bxs-lock"></i></span>
-//                   </div>
-//                   <div className="flex items-center justify-between text-sm text-[#e4e4e4]">
-//                     <label>
-//                       <input type="checkbox" className="accent-[#e4e4e4] mr-2" />Remember me
-//                     </label>
-//                     <a href="#" className="hover:underline">Forgot Password?</a>
-//                   </div>
-//                   <button type="submit" className="w-full py-3 bg-[#27ceac] rounded-lg text-[#e4e4e4] font-semibold shadow-md">Login</button>
-//                   <div className="text-center text-sm mt-6">
-//                     <p>Don't have an account?<br />
-//                       <a href="#" onClick={() => setIsLogin(false)} className="text-[#e4e4e4] hover:underline">Register</a>
-//                     </p>
-//                   </div>
-//                 </form>
-//               ) : (
-//                 <form action="#" className="space-y-6">
-//                   <h2 className="text-3xl text-center text-[#e4e4e4]">Sign Up</h2>
-//                   <div className="relative border-b-2 border-[#e4e4e4] py-2">
-//                     <input type="text" required className="w-full bg-transparent outline-none text-[#e4e4e4] placeholder-transparent" />
-//                     <label className="absolute top-0 text-[#e4e4e4] transform -translate-y-1/2 pointer-events-none transition-all duration-200">Name</label>
-//                     <span className="absolute right-0 top-3 text-[#e4e4e4]"><i className="bx bxs-user"></i></span>
-//                   </div>
-//                   <div className="relative border-b-2 border-[#e4e4e4] py-2">
-//                     <input type="text" required className="w-full bg-transparent outline-none text-[#e4e4e4] placeholder-transparent" />
-//                     <label className="absolute top-0 text-[#e4e4e4] transform -translate-y-1/2 pointer-events-none transition-all duration-200">Email</label>
-//                     <span className="absolute right-0 top-3 text-[#e4e4e4]"><i className="bx bxs-envelope"></i></span>
-//                   </div>
-//                   <div className="relative border-b-2 border-[#e4e4e4] py-2">
-//                     <input type="password" required className="w-full bg-transparent outline-none text-[#e4e4e4] placeholder-transparent" />
-//                     <label className="absolute top-0 text-[#e4e4e4] transform -translate-y-1/2 pointer-events-none transition-all duration-200">Password</label>
-//                     <span className="absolute right-0 top-3 text-[#e4e4e4]"><i className="bx bxs-lock"></i></span>
-//                   </div>
-//                   <div className="flex items-center text-sm text-[#e4e4e4]">
-//                     <label>
-//                       <input type="checkbox" className="accent-[#e4e4e4] mr-2" />I agree to the terms & conditions
-//                     </label>
-//                   </div>
-//                   <button type="submit" className="w-full py-3 bg-[#27ceac] rounded-lg text-[#e4e4e4] font-semibold shadow-md">Sign Up</button>
-//                   <div className="text-center text-sm mt-6">
-//                     <p>Already have an account?<br />
-//                       <a href="#" onClick={() => setIsLogin(true)} className="text-[#e4e4e4] hover:underline">Login</a>
-//                     </p>
-//                   </div>
-//                 </form>
-//               )}
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AuthPage;
-
-
-
-
-
-
-
-// import React, { useState } from "react";
-// import "boxicons";
-
-// const AuthPage = () => {
-//   const [isLogin, setIsLogin] = useState(true);
-
-//   const toggleForm = () => {
-//     setIsLogin(!isLogin);
-//   };
-
-//   return (
-//     <div className="bg-[#020410] min-h-screen flex items-center justify-center">
-//       <div
-//         className="absolute inset-0 bg-cover bg-center blur-[10px]"
-//         style={{
-//           backgroundImage:
-//             "url('https://i.postimg.cc/prv7bv98/pexels-philippedonn-1114690.jpg')",
-//         }}
-//       ></div>
-//       <div className="relative w-3/4 h-[550px] bg-cover bg-center rounded-lg mt-6 overflow-hidden"
-//            style={{
-//             backgroundImage:
-//               "url('https://i.postimg.cc/prv7bv98/pexels-philippedonn-1114690.jpg')",
-//           }}>
-//         <div className="absolute top-0 left-0 w-1/2 h-full bg-transparent p-20 text-[#e4e4e4] flex flex-col justify-between">
-//           <h2 className="text-3xl">
-//             <i className="bx bxl-firefox"></i> Dev Tech
-//           </h2>
-//           <div>
-//             <h2 className="text-4xl leading-none">
-//               Welcome! <br />
-//               <span className="text-2xl">To Our New Website.</span>
-//             </h2>
-//             <p className="text-base my-5">
-//               We're delighted to have you here. If you need any assistance,
-//               feel free to reach out!
-//             </p>
-//             <div className="flex space-x-3">
-//               <a href="#" className="text-[#e4e4e4] hover:scale-110 duration-300">
-//                 <i className="bx bxl-facebook-circle text-2xl"></i>
-//               </a>
-//               <a href="#" className="text-[#e4e4e4] hover:scale-110 duration-300">
-//                 <i className="bx bxl-instagram-alt text-2xl"></i>
-//               </a>
-//               <a href="#" className="text-[#e4e4e4] hover:scale-110 duration-300">
-//                 <i className="bx bxl-linkedin-square text-2xl"></i>
-//               </a>
-//               <a href="#" className="text-[#e4e4e4] hover:scale-110 duration-300">
-//                 <i className="bx bxl-dribbble text-2xl"></i>
-//               </a>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="absolute top-0 right-0 w-[calc(100%-60%)] h-full backdrop-blur-xl bg-transparent border-l border-[#e4e4e4] flex items-center justify-center">
-//           <div
-//             className={`form-box ${isLogin ? "login" : "register"} transition-transform duration-500`}
-//           >
-//             {isLogin ? (
-//               <form action="#" className="text-[#e4e4e4]">
-//                 <h2 className="text-2xl text-center">Login</h2>
-//                 <div className="input-box relative w-[340px] h-12 border-b-2 border-[#e4e4e4] my-8">
-//                   <span className="icon absolute top-3 right-0 text-xl">
-//                     <i className="bx bxs-envelope"></i>
-//                   </span>
-//                   <input
-//                     type="text"
-//                     required
-//                     className="w-full h-full bg-transparent text-base text-[#e4e4e4] focus:outline-none pr-7"
-//                   />
-//                   <label className="absolute top-1/2 left-0 transform -translate-y-1/2 text-base font-medium transition-all">
-//                     Email
-//                   </label>
-//                 </div>
-
-//                 <div className="input-box relative w-[340px] h-12 border-b-2 border-[#e4e4e4] my-8">
-//                   <span className="icon absolute top-3 right-0 text-xl">
-//                     <i className="bx bxs-lock"></i>
-//                   </span>
-//                   <input
-//                     type="password"
-//                     required
-//                     className="w-full h-full bg-transparent text-base text-[#e4e4e4] focus:outline-none pr-7"
-//                   />
-//                   <label className="absolute top-1/2 left-0 transform -translate-y-1/2 text-base font-medium transition-all">
-//                     Password
-//                   </label>
-//                 </div>
-
-//                 <div className="flex justify-between items-center text-sm font-medium mb-4">
-//                   <label className="flex items-center">
-//                     <input type="checkbox" className="accent-[#e4e4e4] mr-1" />
-//                     Remember me
-//                   </label>
-//                   <a href="#" className="hover:underline">
-//                     Forgot Password?
-//                   </a>
-//                 </div>
-
-//                 <button type="submit" className="btn w-full h-11 bg-[#27ceac] rounded-md text-[#e4e4e4] font-semibold shadow-lg mb-6">
-//                   Login
-//                 </button>
-
-//                 <div className="text-center text-sm font-medium">
-//                   <p>
-//                     Don't have an account?{" "}
-//                     <span
-//                       onClick={toggleForm}
-//                       className="cursor-pointer text-lg hover:underline"
-//                     >
-//                       Register
-//                     </span>
-//                   </p>
-//                 </div>
-//               </form>
-//             ) : (
-//               <form action="#" className="text-[#e4e4e4]">
-//                 <h2 className="text-2xl text-center">Sign Up</h2>
-//                 <div className="input-box relative w-[340px] h-12 border-b-2 border-[#e4e4e4] my-8">
-//                   <span className="icon absolute top-3 right-0 text-xl">
-//                     <i className="bx bxs-user"></i>
-//                   </span>
-//                   <input
-//                     type="text"
-//                     required
-//                     className="w-full h-full bg-transparent text-base text-[#e4e4e4] focus:outline-none pr-7"
-//                   />
-//                   <label className="absolute top-1/2 left-0 transform -translate-y-1/2 text-base font-medium transition-all">
-//                     Name
-//                   </label>
-//                 </div>
-
-//                 <div className="input-box relative w-[340px] h-12 border-b-2 border-[#e4e4e4] my-8">
-//                   <span className="icon absolute top-3 right-0 text-xl">
-//                     <i className="bx bxs-envelope"></i>
-//                   </span>
-//                   <input
-//                     type="text"
-//                     required
-//                     className="w-full h-full bg-transparent text-base text-[#e4e4e4] focus:outline-none pr-7"
-//                   />
-//                   <label className="absolute top-1/2 left-0 transform -translate-y-1/2 text-base font-medium transition-all">
-//                     Email
-//                   </label>
-//                 </div>
-
-//                 <div className="input-box relative w-[340px] h-12 border-b-2 border-[#e4e4e4] my-8">
-//                   <span className="icon absolute top-3 right-0 text-xl">
-//                     <i className="bx bxs-lock"></i>
-//                   </span>
-//                   <input
-//                     type="password"
-//                     required
-//                     className="w-full h-full bg-transparent text-base text-[#e4e4e4] focus:outline-none pr-7"
-//                   />
-//                   <label className="absolute top-1/2 left-0 transform -translate-y-1/2 text-base font-medium transition-all">
-//                     Password
-//                   </label>
-//                 </div>
-
-//                 <div className="flex items-center text-sm font-medium mb-4">
-//                   <label className="flex items-center">
-//                     <input type="checkbox" className="accent-[#e4e4e4] mr-1" />
-//                     I agree to the terms & conditions
-//                   </label>
-//                 </div>
-
-//                 <button type="submit" className="btn w-full h-11 bg-[#27ceac] rounded-md text-[#e4e4e4] font-semibold shadow-lg mb-6">
-//                   Sign Up
-//                 </button>
-
-//                 <div className="text-center text-sm font-medium">
-//                   <p>
-//                     Already have an account?{" "}
-//                     <span
-//                       onClick={toggleForm}
-//                       className="cursor-pointer text-lg hover:underline"
-//                     >
-//                       Login
-//                     </span>
-//                   </p>
-//                 </div>
-//               </form>
-//             )}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AuthPage;
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import 'boxicons/css/boxicons.min.css';
-
-// const AuthPage = () => {
-//   return (
-//     <div className="bg-[#020410] min-h-screen flex items-center justify-center">
-//       {/* Background Overlay */}
-//       <div className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-60" style={{ backgroundImage: "url('https://i.postimg.cc/prv7bv98/pexels-philippedonn-1114690.jpg')" }}></div>
-
-//       <div className="relative z-10 w-3/4 max-w-5xl bg-white bg-opacity-10 rounded-lg shadow-lg p-8 md:p-12">
-//         <div className="flex flex-col md:flex-row">
-
-//           {/* Left Side Content */}
-//           <div className="w-full md:w-1/2 p-8 text-white space-y-4">
-//             <h2 className="text-3xl font-bold flex items-center gap-2">
-//               <i className="bx bxl-firefox text-4xl"></i> Dev Tech
-//             </h2>
-//             <h2 className="text-4xl font-bold">Welcome!</h2>
-//             <p className="text-lg">We're delighted to have you here. If you need any assistance, feel free to reach out!</p>
-//             <div className="flex gap-4">
-//               <a href="#"><i className="bx bxl-facebook-circle text-3xl hover:scale-110"></i></a>
-//               <a href="#"><i className="bx bxl-instagram-alt text-3xl hover:scale-110"></i></a>
-//               <a href="#"><i className="bx bxl-linkedin-square text-3xl hover:scale-110"></i></a>
-//               <a href="#"><i className="bx bxl-dribbble text-3xl hover:scale-110"></i></a>
-//             </div>
-//           </div>
-
-//           {/* Right Side Login and Signup Forms */}
-//           <div className="w-full md:w-1/2 space-y-8">
-//             <div className="bg-white bg-opacity-20 p-6 rounded-lg backdrop-blur-lg shadow-lg">
-//               <form className="space-y-4">
-//                 <h2 className="text-3xl font-semibold text-center text-white">Login</h2>
-
-//                 <div className="relative">
-//                   <i className="bx bxs-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-//                   <input type="email" required className="w-full pl-12 py-2 bg-transparent border-b border-gray-400 text-white focus:outline-none" placeholder="Email" />
-//                 </div>
-
-//                 <div className="relative">
-//                   <i className="bx bxs-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-//                   <input type="password" required className="w-full pl-12 py-2 bg-transparent border-b border-gray-400 text-white focus:outline-none" placeholder="Password" />
-//                 </div>
-
-//                 <div className="flex justify-between items-center text-gray-400 text-sm">
-//                   <label className="flex items-center space-x-2">
-//                     <input type="checkbox" className="accent-gray-500" /> <span>Remember me</span>
-//                   </label>
-//                   <a href="#" className="hover:underline">Forgot Password?</a>
-//                 </div>
-//                 <button type="submit" className="w-full py-2 bg-teal-500 hover:bg-teal-600 rounded text-white font-semibold shadow-md">Login</button>
-
-//                 <div className="text-center text-gray-400">
-//                   <p>Don't have an account? <a href="#" className="text-teal-400 hover:underline">Register</a></p>
-//                 </div>
-//               </form>
-//             </div>
-
-//             {/* Sign-Up Form */}
-//             <div className="bg-white bg-opacity-20 p-6 rounded-lg backdrop-blur-lg shadow-lg">
-//               <form className="space-y-4">
-//                 <h2 className="text-3xl font-semibold text-center text-white">Sign Up</h2>
-
-//                 <div className="relative">
-//                   <i className="bx bxs-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-//                   <input type="text" required className="w-full pl-12 py-2 bg-transparent border-b border-gray-400 text-white focus:outline-none" placeholder="Name" />
-//                 </div>
-
-//                 <div className="relative">
-//                   <i className="bx bxs-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-//                   <input type="email" required className="w-full pl-12 py-2 bg-transparent border-b border-gray-400 text-white focus:outline-none" placeholder="Email" />
-//                 </div>
-
-//                 <div className="relative">
-//                   <i className="bx bxs-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-//                   <input type="password" required className="w-full pl-12 py-2 bg-transparent border-b border-gray-400 text-white focus:outline-none" placeholder="Password" />
-//                 </div>
-
-//                 <div className="flex items-center text-gray-400 text-sm">
-//                   <input type="checkbox" className="accent-gray-500" />
-//                   <span className="ml-2">I agree to the terms & conditions</span>
-//                 </div>
-//                 <button type="submit" className="w-full py-2 bg-teal-500 hover:bg-teal-600 rounded text-white font-semibold shadow-md">Sign Up</button>
-
-//                 <div className="text-center text-gray-400">
-//                   <p>Already have an account? <a href="#" className="text-teal-400 hover:underline">Login</a></p>
-//                 </div>
-//               </form>
-//             </div>
-//           </div>
-
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AuthPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from "react";
-
-// function AuthPage() {
-//     const [isLogin, setIsLogin] = useState(true);
-
-//     const toggleForm = () => {
-//         setIsLogin(!isLogin);
-//     };
-//   return (
-//     <>
-//      <div className="relative w-full h-screen bg-[#020410] font-poppins">
-//       <div
-//         className="absolute inset-0 w-full h-full bg-cover bg-center filter blur-[10px]"
-//         style={{ backgroundImage: 'url(https://i.postimg.cc/prv7bv98/pexels-philippedonn-1114690.jpg)' }}
-//       ></div>
-
-//       <div className="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[75%] h-[550px] bg-cover bg-center rounded-lg"
-//            style={{ backgroundImage: 'url(https://i.postimg.cc/prv7bv98/pexels-philippedonn-1114690.jpg)' }}>
-//         <div className="absolute top-0 left-0 w-1/2 h-full p-20 text-[#e4e4e4] flex flex-col justify-between">
-//           <h2 className="text-3xl">
-//             <i className="bx bxl-firefox"></i> Dev Tech
-//           </h2>
-//           <div className="text-sci">
-//             <h2 className="text-4xl leading-tight">
-//               Welcome! <br />
-//               <span className="text-2xl">To Our New Website.</span>
-//             </h2>
-//             <p className="text-base mt-5">
-//               We're delighted to have you here. If you need any assistance, feel free to reach out!
-//             </p>
-//             <div className="flex space-x-4 mt-4">
-//               <a href="#" className="hover:scale-110 transform transition">
-//                 <i className="bx bxl-facebook-circle text-xl text-[#e4e4e4]"></i>
-//               </a>
-//               <a href="#" className="hover:scale-110 transform transition">
-//                 <i className="bx bxl-instagram-alt text-xl text-[#e4e4e4]"></i>
-//               </a>
-//               <a href="#" className="hover:scale-110 transform transition">
-//                 <i className="bx bxl-linkedin-square text-xl text-[#e4e4e4]"></i>
-//               </a>
-//               <a href="#" className="hover:scale-110 transform transition">
-//                 <i className="bx bxl-dribbble text-xl text-[#e4e4e4]"></i>
-//               </a>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="absolute top-0 right-0 w-[40%] h-full">
-//           {/* Login Form */}
-//           <div className="absolute w-full h-full bg-transparent backdrop-blur-[20px] rounded-tr-lg rounded-br-lg flex justify-center items-center transition duration-500">
-//             <form className="w-full max-w-sm text-[#e4e4e4]">
-//               <h2 className="text-2xl text-center mb-8">Login</h2>
-
-//               <div className="relative border-b-2 border-[#e4e4e4] mb-8">
-//                 <span className="absolute right-0 top-3 text-xl">
-//                   <i className="bx bxs-envelope"></i>
-//                 </span>
-//                 <input type="text" required className="w-full bg-transparent outline-none text-[#e4e4e4] text-base pr-7" />
-//                 <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-base transition-all">Email</label>
-//               </div>
-
-//               <div className="relative border-b-2 border-[#e4e4e4] mb-8">
-//                 <span className="absolute right-0 top-3 text-xl">
-//                   <i className="bx bxs-lock"></i>
-//                 </span>
-//                 <input type="password" required className="w-full bg-transparent outline-none text-[#e4e4e4] text-base pr-7" />
-//                 <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-base transition-all">Password</label>
-//               </div>
-
-//               <div className="flex justify-between mb-6 text-sm">
-//                 <label className="flex items-center">
-//                   <input type="checkbox" className="mr-2 accent-[#e4e4e4]" />Remember me
-//                 </label>
-//                 <a href="#" className="hover:underline">Forgot Password?</a>
-//               </div>
-//               <button type="submit" className="w-full h-11 bg-[#27ceac] rounded-md shadow-md text-[#e4e4e4] font-semibold">Login</button>
-
-//               <div className="mt-6 text-center">
-//                 <p>Don't have an account?<br />
-//                   <a href="#" className="text-[#e4e4e4] hover:underline text-lg">Register</a>
-//                 </p>
-//               </div>
-//             </form>
-//           </div>
-
-//           {/* Sign-Up Form */}
-//           <div className="absolute w-full h-full bg-transparent backdrop-blur-[20px] rounded-tr-lg rounded-br-lg flex justify-center items-center transition duration-500 transform translate-x-[470px]">
-//             <form className="w-full max-w-sm text-[#e4e4e4]">
-//               <h2 className="text-2xl text-center mb-8">Sign Up</h2>
-
-//               <div className="relative border-b-2 border-[#e4e4e4] mb-8">
-//                 <span className="absolute right-0 top-3 text-xl">
-//                   <i className="bx bxs-user"></i>
-//                 </span>
-//                 <input type="text" required className="w-full bg-transparent outline-none text-[#e4e4e4] text-base pr-7" />
-//                 <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-base transition-all">Name</label>
-//               </div>
-
-//               <div className="relative border-b-2 border-[#e4e4e4] mb-8">
-//                 <span className="absolute right-0 top-3 text-xl">
-//                   <i className="bx bxs-envelope"></i>
-//                 </span>
-//                 <input type="text" required className="w-full bg-transparent outline-none text-[#e4e4e4] text-base pr-7" />
-//                 <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-base transition-all">Email</label>
-//               </div>
-
-//               <div className="relative border-b-2 border-[#e4e4e4] mb-8">
-//                 <span className="absolute right-0 top-3 text-xl">
-//                   <i className="bx bxs-lock"></i>
-//                 </span>
-//                 <input type="password" required className="w-full bg-transparent outline-none text-[#e4e4e4] text-base pr-7" />
-//                 <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-base transition-all">Password</label>
-//               </div>
-
-//               <div className="flex items-center mb-6 text-sm">
-//                 <label className="flex items-center">
-//                   <input type="checkbox" className="mr-2 accent-[#e4e4e4]" />I agree to the terms & conditions
-//                 </label>
-//               </div>
-//               <button type="submit" className="w-full h-11 bg-[#27ceac] rounded-md shadow-md text-[#e4e4e4] font-semibold">Sign Up</button>
-
-//               <div className="mt-6 text-center">
-//                 <p>Already have an account?<br />
-//                   <a href="#" className="text-[#e4e4e4] hover:underline text-lg">Login</a>
-//                 </p>
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//     </>
-//   );
-// }
-
-// export default AuthPage;
-
-
-
-
 import React, { useState } from 'react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaDribbble } from 'react-icons/fa';
-import { FiMail, FiLock, FiUser, FiPhone } from 'react-icons/fi';
+import { FiPhone, FiUser } from 'react-icons/fi';
+import poster from "../Images/logo7.jpeg";
+import { toast } from 'react-hot-toast'; // Import react-hot-toast for notifications
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showOtp, setShowOtp] = useState(false);
-  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    phone: '',
+    otp: '',
+    name: '',
+    email: '',
+  });
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const validatePhoneNumber = (phone) => {
+    // Check if phone number is exactly 10 digits
+    const phonePattern = /^[0-9]{10}$/;
+    return phonePattern.test(phone);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const { phone } = formData;
+
+    // Trim the phone number to ignore leading/trailing spaces
+    const trimmedPhone = phone.trim();
+
+    // Validate phone number before making the login API call
+    if (!trimmedPhone) {
+      toast.error('Phone number is required.');
+      return;
+    }
+
+    if (!validatePhoneNumber(trimmedPhone)) {
+      toast.error('Please enter a valid 10-digit phone number.');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3001/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone: trimmedPhone,
+        }),
+      });
+      const data = await response.json();
+      console.log(data)
+      if (response.ok) {
+        // Show success notification using react-hot-toast
+        toast.success(data.message); // Display the message from the response
+        // Show OTP field after login success
+        setShowOtp(true);
+      } else {
+        setErrorMessage(data.error || 'Login failed.');
+        toast.error(data.error || 'Login failed.');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred while logging in.');
+      toast.error('An error occurred while logging in.');
+    }
+  };
+
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+
+    const { phone, otp } = formData;
+
+    if (!otp) {
+      toast.error('OTP is required.');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3001/api/user/verifyOtp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone: phone,
+          otp,
+        }),
+      });
+      const data = await response.json();
+      console.log(data)
+      if (response.ok) {
+        // Handle successful OTP verification (e.g., redirect or store user data)
+        toast.success("Logged In");
+        dispatch({
+          type: 'IS_LOGGED_IN',
+          payload: 'true',
+        });
+        // Redirect to the home page
+        navigate('/');
+      } else {
+        setErrorMessage(data.error || 'OTP verification failed.');
+        toast.error(data.error || 'OTP verification failed.');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred while verifying OTP.');
+      toast.error('An error occurred while verifying OTP.');
+    }
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    // Trim the phone number to ignore leading/trailing spaces
+    const trimmedPhone = formData.phone.trim();
+
+    // Validate phone number before making the login API call
+    if (!trimmedPhone) {
+      toast.error('Phone number is required.');
+      return;
+    }
+
+    if (!validatePhoneNumber(trimmedPhone)) {
+      toast.error('Please enter a valid 10-digit phone number.');
+      return;
+    }
+    try {
+      const response = await fetch('http://localhost:3001/api/user/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        toast.success('Sign Up Successfull');
+        console.log('Sign Up Successful:', data);
+      } else {
+        setErrorMessage(data.error || 'Sign Up failed.');
+        toast.error(data.error || 'Sign Up failed.');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred while signing up.');
+      toast.error('An error occurred while signing up.');
+    }
+  };
 
   return (
     <div className="relative w-full min-h-screen bg-[#020410] font-poppins flex items-center justify-center">
       <div className="absolute w-full h-full bg-cover bg-center blur-sm"
-        style={{ backgroundImage: "url('https://i.postimg.cc/prv7bv98/pexels-philippedonn-1114690.jpg')" }}></div>
+        style={{ backgroundImage: `url(${poster})` }}></div>
 
-      <div className="absolute w-[75%] h-[550px] bg-cover bg-center rounded-lg shadow-lg"
-        style={{ backgroundImage: "url('https://i.postimg.cc/prv7bv98/pexels-philippedonn-1114690.jpg')" }}></div>
+      <div className="absolute w-full h-full bg-cover bg-center rounded-lg shadow-xl"
+        style={{ backgroundImage: `url(${poster})` }}>
+        <div className="absolute w-full h-full bg-black opacity-40"></div>
+      </div>
 
-      <div className="relative flex w-[75%] h-[550px] rounded-lg overflow-hidden">
+      <div className="relative flex w-[80%] h-[600px] rounded-lg overflow-hidden">
         {/* Left Content */}
-        <div className="w-1/2 h-full bg-transparent p-10 flex flex-col justify-between text-[#e4e4e4]">
-          <h2 className="text-2xl font-bold flex items-center space-x-2">
-            <FiUser className="text-4xl" /> <span>Dev Tech</span>
+        <div className="w-1/2 h-full bg-transparent p-12 flex flex-col justify-between text-[#f0f0f0]">
+          <h2 className="text-4xl font-bold flex items-center space-x-3">
+            <FiUser className="text-5xl" /> <span className="text-[#27ceac]">HealthMate</span>
           </h2>
-          <div className="space-y-6">
-            <h2 className="text-4xl font-bold">Welcome! <br /><span className="text-2xl">To Our New Website.</span></h2>
-            <p>We're delighted to have you here. If you need any assistance, feel free to reach out!</p>
-            <div className="flex space-x-4">
-              <a href="#" className="hover:scale-110 transition transform"><FaFacebook size={22} className="text-[#e4e4e4]" /></a>
-              <a href="#" className="hover:scale-110 transition transform"><FaInstagram size={22} className="text-[#e4e4e4]" /></a>
-              <a href="#" className="hover:scale-110 transition transform"><FaLinkedin size={22} className="text-[#e4e4e4]" /></a>
-              <a href="#" className="hover:scale-110 transition transform"><FaDribbble size={22} className="text-[#e4e4e4]" /></a>
+          <div className="space-y-8">
+            <h2 className="text-5xl font-semibold">Welcome to HealthMate! <br /><span className="text-3xl">Your Trusted Pharmacy.</span></h2>
+            <p className="text-lg">We're dedicated to delivering high-quality health products and services directly to your doorstep.</p>
+            <div className="flex space-x-6">
+              <a href="#" className="hover:scale-110 transition transform"><FaFacebook size={28} className="text-[#e4e4e4]" /></a>
+              <a href="#" className="hover:scale-110 transition transform"><FaInstagram size={28} className="text-[#e4e4e4]" /></a>
+              <a href="#" className="hover:scale-110 transition transform"><FaLinkedin size={28} className="text-[#e4e4e4]" /></a>
+              <a href="#" className="hover:scale-110 transition transform"><FaDribbble size={28} className="text-[#e4e4e4]" /></a>
             </div>
           </div>
         </div>
@@ -586,105 +188,126 @@ const AuthPage = () => {
         {/* Right Box - Login/Signup */}
         <div className="w-1/2 h-full bg-transparent backdrop-blur-lg relative">
           <div
-            className={`absolute inset-0 flex flex-col items-center justify-center p-10 transition-transform duration-500 ease-in-out transform ${
-              isLogin ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-            }`}
+            className={`absolute inset-0 flex flex-col items-center justify-center p-12 transition-transform duration-500 ease-in-out transform ${isLogin ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}`}
           >
-            <h2 className="text-white text-3xl font-semibold text-center">Login</h2>
-            <form action="#" className="space-y-6 mt-8">
-              <div className="relative border-b-2 border-[#e4e4e4] w-[340px] h-[50px]">
-                <input 
-                  type="text" 
-                  required 
-                  className="w-full h-full bg-transparent outline-none text-[#e4e4e4] px-2"
-                  onFocus={(e) => e.target.nextSibling.classList.add("transform", "-translate-y-3", "text-sm")}
-                  onBlur={(e) => !e.target.value && e.target.nextSibling.classList.remove("transform", "-translate-y-3", "text-sm")}
+            <h2 className="text-white text-4xl font-semibold text-center">Login</h2>
+            <form onSubmit={showOtp ? handleVerifyOtp : handleLogin} className="space-y-8 mt-10 w-full max-w-[380px]">
+              <div className="relative w-full h-[55px] border-b-2 border-gray-300 my-8">
+                <span className="absolute top-[15px] right-0 text-[22px] text-gray-300">
+                  <FiPhone />
+                </span>
+                <input
+                  type="text"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  className="w-full h-full bg-transparent border-none outline-none text-[18px] text-gray-300 pr-7 peer"
                 />
-                <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[#e4e4e4] text-base font-medium transition duration-500 ease">
+                <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[18px] font-medium text-gray-300 pointer-events-none transition-all duration-500 ease-in-out peer-focus:top-[-5px] peer-focus:text-white peer-valid:top-[-5px] peer-valid:text-white">
                   Phone Number
                 </label>
-                <FiPhone className="absolute right-0 top-1/2 transform -translate-y-1/2 text-xl text-[#e4e4e4]" />
               </div>
-              
+
               {showOtp && (
-                <div className="relative border-b-2 border-[#e4e4e4] w-[340px] h-[50px]">
-                  <input 
-                    type="text" 
-                    required 
-                    className="w-full h-full bg-transparent outline-none text-[#e4e4e4] px-2" 
+                <div className="relative w-full h-[55px] border-b-2 border-gray-300 my-8">
+                  <input
+                    type="text"
+                    name="otp"
+                    value={formData.otp}
+                    onChange={handleChange}
+                    required
+                    className="w-full h-full bg-transparent border-none outline-none text-[18px] text-gray-300 pr-7 peer"
                   />
-                  <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[#e4e4e4] text-base font-medium transition duration-500 ease">
-                    OTP
+                  <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[18px] font-medium text-gray-300 pointer-events-none transition-all duration-500 ease-in-out peer-focus:top-[-5px] peer-focus:text-white peer-valid:top-[-5px] peer-valid:text-white">
+                    Enter OTP
                   </label>
                 </div>
               )}
-              <button 
-                type="button" 
-                className="w-full py-2 bg-[#27ceac] rounded-lg text-[#e4e4e4] font-semibold shadow-md"
-                onClick={() => setShowOtp(true)}
+
+
+              <button
+                type="submit"
+                className="w-full py-3 bg-[#27ceac] rounded-lg text-[#f0f0f0] font-semibold shadow-xl"
               >
-                OK
+                {showOtp ? 'Verify OTP' : 'Login'}
               </button>
-              <p className="text-center text-[#e4e4e4] mt-4">Don't have an account?<br /><a href="#" className="text-lg" onClick={() => setIsLogin(false)}>Register</a></p>
+
+              <p className="text-center text-[#f0f0f0] mt-6 text-lg">Don't have an account?<br /><a href="#" className="text-lg text-[#27ceac]" onClick={() => setIsLogin(false)}>Sign Up</a></p>
             </form>
           </div>
 
           <div
-            className={`absolute inset-0 flex flex-col items-center justify-center p-10 transition-transform duration-500 ease-in-out transform ${
-              isLogin ? "translate-x-full opacity-0" : "translate-x-0 opacity-100"
-            }`}
+            className={`absolute inset-0 flex flex-col items-center justify-center p-12 transition-transform duration-500 ease-in-out transform ${!isLogin ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}
           >
-            <h2 className="text-white text-3xl font-semibold text-center">Sign Up</h2>
-            <form action="#" className="space-y-6 mt-8">
-              <div className="relative border-b-2 border-[#e4e4e4] w-[340px] h-[50px]">
-                <input 
-                  type="text" 
-                  required 
-                  className="w-full h-full bg-transparent outline-none text-[#e4e4e4] px-2"
-                  onFocus={(e) => e.target.nextSibling.classList.add("transform", "-translate-y-3", "text-sm")}
-                  onBlur={(e) => !e.target.value && e.target.nextSibling.classList.remove("transform", "-translate-y-3", "text-sm")}
+            <h2 className="text-white text-4xl font-semibold text-center">Sign Up</h2>
+            <form onSubmit={handleSignUp} className="space-y-8 mt-10 w-full max-w-[380px]">
+              {/* Name */}
+              <div className="relative w-full h-[55px] border-b-2 border-gray-300 my-8">
+                <span className="absolute top-[15px] right-0 text-[22px] text-gray-300">
+                  <FiUser />
+                </span>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full h-full bg-transparent border-none outline-none text-[18px] text-gray-300 pr-7 peer"
                 />
-                <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[#e4e4e4] text-base font-medium transition duration-500 ease">
+                <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[18px] font-medium text-gray-300 pointer-events-none transition-all duration-500 ease-in-out peer-focus:top-[-5px] peer-focus:text-white peer-valid:top-[-5px] peer-valid:text-white">
                   Name
                 </label>
-                <FiUser className="absolute right-0 top-1/2 transform -translate-y-1/2 text-xl text-[#e4e4e4]" />
               </div>
-              <div className="relative border-b-2 border-[#e4e4e4] w-[340px] h-[50px]">
-                <input 
-                  type="text" 
-                  required 
-                  className="w-full h-full bg-transparent outline-none text-[#e4e4e4] px-2"
-                  onFocus={(e) => e.target.nextSibling.classList.add("transform", "-translate-y-3", "text-sm")}
-                  onBlur={(e) => !e.target.value && e.target.nextSibling.classList.remove("transform", "-translate-y-3", "text-sm")}
+
+              <div className="relative w-full h-[55px] border-b-2 border-gray-300 my-8">
+                <span className="absolute top-[15px] right-0 text-[22px] text-gray-300">
+                  <FiPhone />
+                </span>
+                <input
+                  type="text"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  className="w-full h-full bg-transparent border-none outline-none text-[18px] text-gray-300 pr-7 peer"
                 />
-                <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[#e4e4e4] text-base font-medium transition duration-500 ease">
+                <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[18px] font-medium text-gray-300 pointer-events-none transition-all duration-500 ease-in-out peer-focus:top-[-5px] peer-focus:text-white peer-valid:top-[-5px] peer-valid:text-white">
                   Phone Number
                 </label>
-                <FiPhone className="absolute right-0 top-1/2 transform -translate-y-1/2 text-xl text-[#e4e4e4]" />
               </div>
-              <div className="relative border-b-2 border-[#e4e4e4] w-[340px] h-[50px]">
-                <input 
-                  type="text" 
-                  className="w-full h-full bg-transparent outline-none text-[#e4e4e4] px-2"
-                  onFocus={(e) => e.target.nextSibling.classList.add("transform", "-translate-y-3", "text-sm")}
-                  onBlur={(e) => !e.target.value && e.target.nextSibling.classList.remove("transform", "-translate-y-3", "text-sm")}
+
+              {/* Email (Optional) */}
+              <div className="relative w-full h-[55px] border-b-2 border-gray-300 my-8">
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full h-full bg-transparent border-none outline-none text-[18px] text-gray-300 pr-7 peer"
                 />
-                <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[#e4e4e4] text-base font-medium transition duration-500 ease">
-                  Email (optional)
+                <label className="absolute left-0 top-1/2 transform -translate-y-1/2 text-[18px] font-medium text-gray-300 pointer-events-none transition-all duration-500 ease-in-out peer-focus:top-[-5px] peer-focus:text-white peer-valid:top-[-5px] peer-valid:text-white">
+                  Email (Optional)
                 </label>
-                <FiMail className="absolute right-0 top-1/2 transform -translate-y-1/2 text-xl text-[#e4e4e4]" />
               </div>
-              <button type="submit" className="w-full py-2 bg-[#27ceac] rounded-lg text-[#e4e4e4] font-semibold shadow-md">Sign Up</button>
-              <p className="text-center text-[#e4e4e4] mt-4">Already have an account?<br /><a href="#" className="text-lg" onClick={() => setIsLogin(true)}>Login</a></p>
+
+
+              <button
+                type="submit"
+                className="w-full py-3 bg-[#27ceac] rounded-lg text-[#f0f0f0] font-semibold shadow-xl"
+              >
+                Sign Up
+              </button>
+
+              <p className="text-center text-[#f0f0f0] mt-6 text-lg">Already have an account?<br /><a href="#" className="text-lg text-[#27ceac]" onClick={() => setIsLogin(true)}>Login</a></p>
             </form>
           </div>
         </div>
       </div>
     </div>
-    
-
   );
-}
+};
 
 export default AuthPage;
+
 

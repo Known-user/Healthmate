@@ -844,64 +844,604 @@
 
 
 
+// import React, { useState, useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { Link } from "react-router-dom";
+// import Slider from "react-slick";
+// import toast from 'react-hot-toast';
+
+// const ProductDetails = () => {
+//   const dispatch = useDispatch();
+//   const [activeTab, setActiveTab] = useState("description");
+//   const [product, setProduct] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const thumbnails = product ? [...product.imageLink] : [];
+
+
+//   const [startIndex, setStartIndex] = useState(0); 
+//   const [selectedIndex, setSelectedIndex] = useState(0); 
+
+//   const visibleThumbnails = thumbnails.slice(startIndex, startIndex + 3); 
+
+//   const nextThumbnails = () => {
+//     if (selectedIndex < thumbnails.length - 1) {
+//       setSelectedIndex((prevIndex) => {
+//         const newIndex = prevIndex + 1;
+//         // Move the carousel if the selected image goes beyond the visible set
+//         if (newIndex >= startIndex + 3 && startIndex + 3 < thumbnails.length) {
+//           setStartIndex(startIndex + 1);
+//         }
+//         return newIndex;
+//       });
+//     }
+//   };
+
+//   const prevThumbnails = () => {
+//     if (selectedIndex > 0) {
+//       setSelectedIndex((prevIndex) => {
+//         const newIndex = prevIndex - 1;
+//         // Move the carousel if the selected image goes before the visible set
+//         if (newIndex < startIndex && startIndex > 0) {
+//           setStartIndex(startIndex - 1);
+//         }
+//         return newIndex;
+//       });
+//     }
+//   };
+
+//   const handleThumbnailClick = (index) => {
+//     setSelectedIndex(index);
+//   };
+
+//   const [quantity, setQuantity] = useState(1);
+
+//   const handleQuantityChange = (e) => {
+//     let newQuantity = parseInt(e.target.value, 10);
+//     if (newQuantity < 1) newQuantity = 1;
+//     if (newQuantity > product.quantity) newQuantity = product.quantity;
+//     setQuantity(newQuantity);
+//   };
+
+//   const SampleNextArrow = ({ onClick }) => (
+//     <div
+//       className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 cursor-pointer shadow-lg z-10"
+//       onClick={onClick}
+//     >
+//       <svg
+//         xmlns="http://www.w3.org/2000/svg"
+//         className="h-5 w-5 text-gray-600"
+//         fill="none"
+//         viewBox="0 0 24 24"
+//         stroke="currentColor"
+//         strokeWidth="2"
+//       >
+//         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+//       </svg>
+//     </div>
+//   );
+
+//   const SamplePrevArrow = ({ onClick }) => (
+//     <div
+//       className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 cursor-pointer shadow-lg z-10"
+//       onClick={onClick}
+//     >
+//       <svg
+//         xmlns="http://www.w3.org/2000/svg"
+//         className="h-5 w-5 text-gray-600"
+//         fill="none"
+//         viewBox="0 0 24 24"
+//         stroke="currentColor"
+//         strokeWidth="2"
+//       >
+//         <path
+//           strokeLinecap="round"
+//           strokeLinejoin="round"
+//           d="M15 19l-7-7 7-7"
+//         />
+//       </svg>
+//     </div>
+//   );
+//   const settings = {
+//     infinite: true,
+//     slidesToShow: 5,
+//     slidesToScroll: 1,
+//     autoplay: false,
+//     arrows: true,
+//     prevArrow: <SamplePrevArrow />,
+//     nextArrow: <SampleNextArrow />,
+//     responsive: [
+//       {
+//         breakpoint: 1800,
+//         settings: {
+//           slidesToShow: 4,
+//         },
+//       },
+//       {
+//         breakpoint: 1400,
+//         settings: {
+//           slidesToShow: 3,
+//         },
+//       },
+//       {
+//         breakpoint: 1000,
+//         settings: {
+//           slidesToShow: 2,
+//         },
+//       },
+//       {
+//         breakpoint: 480,
+//         settings: {
+//           slidesToShow: 1,
+//         },
+//       },
+//     ],
+//   };
+
+//   const [deals, setDeals] = useState([]);
+
+// const fetchCategoryData = async (type) => {
+//   try {
+//     const response = await fetch(
+//       `http://localhost:3001/api/category/${type}`
+//     );
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch categories");
+//     }
+//     const data = await response.json();
+//     return data.data; 
+//   } catch (error) {
+//     console.error("Error fetching categories:", error.message);
+//     return []; 
+//   }
+// };
+
+// const getDeals = async () => {
+//   const products = await Promise.all(
+//     product.categories.map(async (category) => {
+//       const data = await fetchCategoryData(category);
+//       return data; 
+//     })
+//   );
+
+//   setDeals(products.flat());
+// };
+// const handleAddToCart = () => {
+//   dispatch({ type: 'CART_DATA', payload: product });
+//   toast.success("Added to cart!");
+// };
+// const handleAddToCart2 = (deal) => {
+//   dispatch({ type: 'CART_DATA', payload: deal });
+//   toast.success("Added to cart!");
+// };
+
+
+// const fetchProductDetails = async (productId) => {
+//   try {
+//     const response = await fetch(`http://localhost:3001/api/product/${productId}`);
+//     if (!response.ok) {
+//       throw new Error('Failed to fetch product details');
+//     }
+//     const data = await response.json();
+//     setProduct(data.data); // Set product data into state
+//     setLoading(false)
+//   } catch (err) {
+//     console.log(err)
+//     setLoading(false)
+//   }
+// };
+// useEffect(() => {
+//   const productId = localStorage.getItem('productId');
+
+//     if (productId) {
+//       fetchProductDetails(productId);
+//     } else {
+//       console.log("No product ID found in localStorage");
+//     }
+//   getDeals(); 
+// }, []);
+//   return (
+//     <>
+//     {!loading &&
+    
+//       <div className="container mx-auto p-6 mt-36">
+//         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//           <div className="flex flex-col">
+//             {/* Main image */}
+//             <img
+//               className="h-[30rem] rounded-lg object-contain"
+//               src={thumbnails[selectedIndex]}
+//               alt="Main Image"
+//             />
+
+//             {/* Thumbnails carousel */}
+//             <div className="flex justify-center">
+//               <div className="relative w-full max-w-[500px] flex items-center mt-4">
+//                 {/* Left arrow */}
+//                 <button
+//                   onClick={prevThumbnails}
+//                   className="absolute left-0 bg-gray-700 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center transition-transform transform hover:scale-110 hover:bg-gray-800 focus:outline-none"
+//                   disabled={selectedIndex === 0}
+//                 >
+//                   &#10094;
+//                 </button>
+
+//                 <div className="flex space-x-2 mx-auto">
+//                   {visibleThumbnails.slice(0, 3).map((thumbnail, index) => (
+//                     <img
+//                       key={startIndex + index}
+//                       className={`w-16 h-16 rounded-lg cursor-pointer ${
+//                         selectedIndex === startIndex + index
+//                           ? "border-2 border-black"
+//                           : ""
+//                       }`}
+//                       src={thumbnail}
+//                       alt={`Thumbnail ${startIndex + index + 1}`}
+//                       onClick={() => handleThumbnailClick(startIndex + index)}
+//                     />
+//                   ))}
+//                 </div>
+
+//                 {/* Right arrow */}
+//                 <button
+//                   onClick={nextThumbnails}
+//                   className="absolute right-0 bg-gray-700 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center transition-transform transform hover:scale-110 hover:bg-gray-800 focus:outline-none"
+//                   disabled={selectedIndex === thumbnails.length - 1}
+//                 >
+//                   &#10095;
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//           <div className="flex flex-col space-y-6 p-6 bg-white rounded-lg ">
+//   <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
+
+//   <div className="flex items-center space-x-2 mt-2">
+//     <span className="text-yellow-500 text-xl">★★★★☆</span>
+//     <span className="text-gray-600 text-lg">(4.9)</span>
+//   </div>
+
+//   <p className="text-3xl font-semibold text-gray-800 mt-2">₹{product.price}</p>
+
+//   <div className="mt-4">
+//     <label htmlFor="brand" className="text-sm font-medium text-gray-600">Brand</label>
+//     <p className="mt-1 text-xl font-medium text-gray-800">{product.brand}</p>
+//   </div>
+
+//   <div className="mt-4">
+//     <label htmlFor="category" className="text-sm font-medium text-gray-600">Product Type</label>
+//     <p className="mt-1 capitalize text-lg text-gray-800">{product.productType}</p>
+//   </div>
+
+//   <div className="mt-4">
+//     <label htmlFor="delivery" className="text-sm font-medium text-gray-600">Estimated Delivery</label>
+//     <p className="mt-1 text-lg text-gray-800">Delivered in 2 days</p>
+//   </div>
+
+//   <div className="flex items-center space-x-3 mt-6">
+//     <label htmlFor="quantity" className="text-sm font-medium text-gray-600">Last left - make it yours!</label>
+//     <div className="flex items-center space-x-3">
+//       <input
+//         id="quantity"
+//         type="number"
+//         className="border border-gray-300 rounded-md p-3 text-center w-24 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 ease-in-out"
+//         value={quantity}
+//         onChange={handleQuantityChange}
+//         min="1"
+//         max={product.quantity}
+//       />
+//       <span className="text-sm text-gray-600">{product.quantity} products left</span>
+//     </div>
+//   </div>
+
+//   <button 
+//     onClick={() => handleAddToCart(product)}
+//     className="bg-[#18181B] text-white text-lg font-semibold py-3 rounded-lg text-center mt-6 hover:bg-[#18181bd0] transition-all duration-300 ease-in-out transform hover:scale-105"
+//   >
+//     Add to cart
+//   </button>
+// </div>
+
+
+//         </div>
+
+//         <div className="product-info-tabs mt-12">
+//           <ul
+//             className="nav nav-tabs flex border-b-2 border-gray-300"
+//             id="myTab"
+//             role="tablist"
+//           >
+//             <li className="nav-item mb-0 mr-4 contents">
+//               <a
+//                 className={`px-4 py-2 nav-link ${
+//                   activeTab === "description"
+//                     ? "active border-b-2 text-gray-800 font-bold border-gray-300"
+//                     : "border-none border-b-2 border-transparent text-gray-800"
+//                 }`}
+//                 id="description-tab"
+//                 href="#description"
+//                 role="tab"
+//                 aria-controls="description"
+//                 aria-selected={activeTab === "description"}
+//                 onClick={(e) => {
+//                   e.preventDefault();
+//                   setActiveTab("description");
+//                 }}
+//               >
+//                 Description
+//               </a>
+//             </li>
+//             <li className="nav-item mb-0 mr-4 contents">
+//               <a
+//                 className={`px-4 py-2 nav-link ${
+//                   activeTab === "review"
+//                     ? "active border-b-2 text-gray-800 font-bold border-gray-300"
+//                     : "border-none border-b-2 border-transparent text-gray-800"
+//                 }`}
+//                 id="review-tab"
+//                 href="#review"
+//                 role="tab"
+//                 aria-controls="review"
+//                 aria-selected={activeTab === "review"}
+//                 onClick={(e) => {
+//                   e.preventDefault();
+//                   setActiveTab("review");
+//                 }}
+//               >
+//                 Reviews (3)
+//               </a>
+//             </li>
+//           </ul>
+//           <div className="tab-content p-4" id="myTabContent">
+//             {activeTab === "description" && (
+//               <div
+//               className={`tab-pane fade show active p-8 text-[15px] leading-6 text-[#7a7a7a]`}
+//               id="description"
+//               role="tabpanel"
+//               aria-labelledby="description-tab"
+//             >
+//               <div className="flex flex-col space-y-6">
+//                 <p className="text-lg font-medium text-gray-800">{product.description}</p>
+            
+//                 <div className="mt-4">
+//                   <span className="text-sm font-semibold text-gray-600">Brand:</span>
+//                   <p className="text-md text-gray-800">{product.brand}</p>
+//                 </div>
+            
+//                 <div className="mt-4">
+//                   <span className="text-sm font-semibold text-gray-600">Categories:</span>
+//                   <p className="text-md text-gray-800">{product.categories.join(', ')}</p>
+//                 </div>
+            
+//                 <div className="mt-4">
+//                   <span className="text-sm font-semibold text-gray-600">Created At:</span>
+//                   <p className="text-md text-gray-800">{new Date(product.createdAt).toLocaleDateString()}</p>
+//                 </div>
+            
+//                 <div className="mt-4">
+//                   <span className="text-sm font-semibold text-gray-600">Product Type:</span>
+//                   <p className="text-md text-gray-800">{product.productType}</p>
+//                 </div>
+            
+//                 <div className="mt-4">
+//                   <span className="text-sm font-semibold text-gray-600">Quantity Available:</span>
+//                   <p className="text-md text-gray-800">{product.quantity} units</p>
+//                 </div>
+            
+//                 <div className="mt-4">
+//                   <span className="text-sm font-semibold text-gray-600">Price:</span>
+//                   <p className="text-md font-semibold text-gray-800">₹{product.price}</p>
+//                 </div>
+//               </div>
+//             </div>
+            
+//             )}
+//             {activeTab === "review" && (
+//               <div
+//                 className={`tab-pane fade show active`}
+//                 id="review"
+//                 role="tabpanel"
+//                 aria-labelledby="review-tab"
+//               >
+//                 <div className="review-heading text-2xl font-semibold leading-6 mb-2 uppercase text-black">
+//                   REVIEWS
+//                 </div>
+
+//                 <div className="mt-4">
+//                   <div className="border-b border-border pb-2">
+//                     <p className="font-semibold">Kathryn Murphy</p>
+//                     <p className="text-muted-foreground">
+//                       The fit is perfect, and the quality is top-notch.
+//                     </p>
+//                     <span className="text-sm text-muted-foreground">
+//                       1 week ago
+//                     </span>
+//                   </div>
+//                   <div className="border-b border-border pb-2 mt-2">
+//                     <p className="font-semibold">Esther Howard</p>
+//                     <p className="text-muted-foreground">
+//                       I recently purchased the gray blazer jacket for women, and
+//                       I couldn't be happier with my purchase!
+//                     </p>
+//                     <span className="text-sm text-muted-foreground">
+//                       2 weeks ago
+//                     </span>
+//                   </div>
+//                   <div className="border-b border-border pb-2 mt-2">
+//                     <p className="font-semibold">Cameron Williamson</p>
+//                     <p className="text-muted-foreground">
+//                       I've received multiple compliments on how stylish it
+//                       looks.
+//                     </p>
+//                     <span className="text-sm text-muted-foreground">
+//                       2 weeks ago
+//                     </span>
+//                   </div>
+//                 </div>
+//                 <form className="review-form">
+//                   <div className="form-group clear-both mt-6 mb-4">
+//                     <label>Your rating</label>
+//                     <div className="reviews-counter">
+//                       <div className="rate inline-block">
+//                         <input type="radio" id="star5" name="rate" value="5" />
+//                         <label htmlFor="star5" title="text">
+//                           5 stars
+//                         </label>
+//                         <input type="radio" id="star4" name="rate" value="4" />
+//                         <label htmlFor="star4" title="text">
+//                           4 stars
+//                         </label>
+//                         <input type="radio" id="star3" name="rate" value="3" />
+//                         <label htmlFor="star3" title="text">
+//                           3 stars
+//                         </label>
+//                         <input type="radio" id="star2" name="rate" value="2" />
+//                         <label htmlFor="star2" title="text">
+//                           2 stars
+//                         </label>
+//                         <input type="radio" id="star1" name="rate" value="1" />
+//                         <label htmlFor="star1" title="text">
+//                           1 star
+//                         </label>
+//                       </div>
+//                     </div>
+//                   </div>
+//                   <div className="form-group clear-both mb-4">
+//                     <label>Your message</label>
+//                     <textarea
+//                       className="form-control text-[14px] resize-none border p-2 w-full"
+//                       rows="10"
+//                     ></textarea>
+//                   </div>
+//                   <div className="flex flex-col md:flex-row gap-4">
+//                     <div className="w-full md:w-1/2">
+//                       <div className="form-group">
+//                         <input
+//                           type="text"
+//                           className="form-control text-[14px] h-10 border p-2 w-full"
+//                           placeholder="Name*"
+//                         />
+//                       </div>
+//                     </div>
+//                     <div className="w-full md:w-1/2">
+//                       <div className="form-group">
+//                         <input
+//                           type="text"
+//                           className="form-control text-[14px] h-10 border p-2 w-full"
+//                           placeholder="Email Id*"
+//                         />
+//                       </div>
+//                     </div>
+//                   </div>
+
+//                   <button className="round-black-btn uppercase cursor-pointer bg-black text-white px-4 py-2 mt-4">
+//                     Submit Review
+//                   </button>
+//                 </form>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+
+
+//         <div className="mt-10">
+//           <h2 className="text-3xl font-bold mb-6">Similar Products</h2>
+//           <Slider {...settings}>
+//             {deals.map((deal, index) => (
+//               <div key={index} className="flex gap-4 overflow-hidden w-full">
+//                 <div className="bg-white text-gray-800 rounded-lg shadow-lg mb-10 p-4 w-60 flex-shrink-0 mx-auto relative">
+//                   <div className="absolute top-2 left-2 bg-white p-2 rounded-full shadow-md">
+//                     <span className="text-sm font-semibold text-gray-800">
+//                       ⭐ {deal.rating}
+//                     </span>
+//                   </div>
+//                   <img
+//                     src={deal.imageLink[0]}
+//                     alt={deal.name}
+//                     className="h-40 mx-auto mb-2"
+//                   />
+//                   <h3 className="text-sm font-semibold mb-1">{deal.name}</h3>
+//                   <p className="text-lg font-bold">
+//                   ₹{deal.price+10}
+//                     <span className="line-through text-gray-400 ml-4">
+//                       {deal.price+100}
+//                     </span>
+//                   </p>
+//                   <p className="text-green-600 text-sm font-semibold mb-3">
+//                     GET {deal.price} % off
+//                   </p>
+//                   <button onClick={() => handleAddToCart2(deal)} className="bg-teal-500 text-white font-semibold py-2 px-4 rounded w-full hover:bg-teal-600">
+//                     ADD TO CART
+//                   </button>
+//                 </div>
+//               </div>
+//             ))}
+//           </Slider>
+//         </div>
+//       </div>
+//     }
+//     </>
+//   );
+// };
+
+// export default ProductDetails;
+
+
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
-import { toast } from 'react-toastify';
-// toast.configure();
+import Loader from "./Loader";
+import toast from 'react-hot-toast';
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("description");
-  const { product } = useSelector((state) => state.first);
-  const thumbnails = [
-    ...product.imageLink
-  ];
-
-  const [startIndex, setStartIndex] = useState(0); 
-  const [selectedIndex, setSelectedIndex] = useState(0); 
-
-  const visibleThumbnails = thumbnails.slice(startIndex, startIndex + 3); 
-
-  const nextThumbnails = () => {
-    if (selectedIndex < thumbnails.length - 1) {
-      setSelectedIndex((prevIndex) => {
-        const newIndex = prevIndex + 1;
-        // Move the carousel if the selected image goes beyond the visible set
-        if (newIndex >= startIndex + 3 && startIndex + 3 < thumbnails.length) {
-          setStartIndex(startIndex + 1);
-        }
-        return newIndex;
-      });
-    }
-  };
-
-  const prevThumbnails = () => {
-    if (selectedIndex > 0) {
-      setSelectedIndex((prevIndex) => {
-        const newIndex = prevIndex - 1;
-        // Move the carousel if the selected image goes before the visible set
-        if (newIndex < startIndex && startIndex > 0) {
-          setStartIndex(startIndex - 1);
-        }
-        return newIndex;
-      });
-    }
-  };
-
-  const handleThumbnailClick = (index) => {
-    setSelectedIndex(index);
-  };
-
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [deals, setDeals] = useState([]);
   const [quantity, setQuantity] = useState(1);
-
-  const handleQuantityChange = (e) => {
+    const handleQuantityChange = (e) => {
     let newQuantity = parseInt(e.target.value, 10);
     if (newQuantity < 1) newQuantity = 1;
     if (newQuantity > product.quantity) newQuantity = product.quantity;
     setQuantity(newQuantity);
   };
+  const [selectedIndex, setSelectedIndex] = useState(0); 
+  const [startIndex, setStartIndex] = useState(0); 
+
+  const thumbnails = product ? [...product.imageLink] : [];
+  const visibleThumbnails = thumbnails.slice(startIndex, startIndex + 3);
+
+  const handleThumbnailClick = (index) => {
+    setSelectedIndex(index);
+  };
+
+  const nextThumbnails = () => {
+        if (selectedIndex < thumbnails.length - 1) {
+          setSelectedIndex((prevIndex) => {
+            const newIndex = prevIndex + 1;
+            // Move the carousel if the selected image goes beyond the visible set
+            if (newIndex >= startIndex + 3 && startIndex + 3 < thumbnails.length) {
+              setStartIndex(startIndex + 1);
+            }
+            return newIndex;
+          });
+        }
+      };
+    
+      const prevThumbnails = () => {
+        if (selectedIndex > 0) {
+          setSelectedIndex((prevIndex) => {
+            const newIndex = prevIndex - 1;
+            // Move the carousel if the selected image goes before the visible set
+            if (newIndex < startIndex && startIndex > 0) {
+              setStartIndex(startIndex - 1);
+            }
+            return newIndex;
+          });
+        }
+      };
 
   const SampleNextArrow = ({ onClick }) => (
     <div
@@ -934,14 +1474,11 @@ const ProductDetails = () => {
         stroke="currentColor"
         strokeWidth="2"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15 19l-7-7 7-7"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
       </svg>
     </div>
   );
+
   const settings = {
     infinite: true,
     slidesToShow: 5,
@@ -951,81 +1488,88 @@ const ProductDetails = () => {
     prevArrow: <SamplePrevArrow />,
     nextArrow: <SampleNextArrow />,
     responsive: [
-      {
-        breakpoint: 1800,
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 1400,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
+      { breakpoint: 1800, settings: { slidesToShow: 4 } },
+      { breakpoint: 1400, settings: { slidesToShow: 3 } },
+      { breakpoint: 1000, settings: { slidesToShow: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 1 } },
     ],
   };
 
-  const [deals, setDeals] = useState([]);
-
-const fetchCategoryData = async (type) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3001/api/category/${type}`
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch categories");
+  const fetchCategoryData = async (category) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/category/${category}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      console.error("Error fetching category data:", error.message);
+      return [];
     }
-    const data = await response.json();
-    return data.data; 
-  } catch (error) {
-    console.error("Error fetching categories:", error.message);
-    return []; 
-  }
-};
+  };
 
-const getDeals = async () => {
-  const products = await Promise.all(
-    product.categories.map(async (category) => {
-      const data = await fetchCategoryData(category);
-      return data; 
-    })
-  );
+  const getDeals = async () => {
+    if (product && product.categories) {
+      const products = await Promise.all(
+        product.categories.map(async (category) => {
+          const data = await fetchCategoryData(category);
+          return data;
+        })
+      );
+      setDeals(products.flat()); // Flattening the array of arrays to get all related products
+    }
+  };
 
-  setDeals(products.flat());
-};
-const handleAddToCart = ({deal}) => {
-  dispatch({ type: 'CART_DATA', payload: deal });
-  toast.success("Added to cart!", {
-    position: toast.POSITION.TOP_RIGHT,
-    autoClose: 3000, // Close after 3 seconds
-  });
-};
+  const handleAddToCart = () => {
+    dispatch({ type: 'CART_DATA', payload: product });
+    toast.success("Added to cart!");
+  };
 
-useEffect(() => {
-  getDeals(); 
-}, []);
+  const handleAddToCart2 = (deal) => {
+    dispatch({ type: 'CART_DATA', payload: deal });
+    toast.success("Added to cart!");
+  };
+
+  const fetchProductDetails = async (productId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/product/${productId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch product details');
+      }
+      const data = await response.json();
+      setProduct(data.data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const productId = localStorage.getItem('productId');
+    if (productId) {
+      fetchProductDetails(productId);
+    } else {
+      console.log("No product ID found in localStorage");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (product && product.categories) {
+      getDeals(); 
+    }
+  }, [product]);
+
   return (
     <>
-    {console.log(deals)}
-      <div className="container mx-auto p-6 mt-36">
+      {!loading && product ?  (
+        <div className="container mx-auto p-6 mt-36">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex flex-col">
             {/* Main image */}
             <img
-              className="h-[30rem] rounded-lg"
+              className="h-[30rem] rounded-lg object-contain"
               src={thumbnails[selectedIndex]}
               alt="Main Image"
             />
@@ -1177,40 +1721,33 @@ useEffect(() => {
               aria-labelledby="description-tab"
             >
               <div className="flex flex-col space-y-6">
-                {/* Product Description */}
                 <p className="text-lg font-medium text-gray-800">{product.description}</p>
             
-                {/* Brand Information */}
                 <div className="mt-4">
                   <span className="text-sm font-semibold text-gray-600">Brand:</span>
                   <p className="text-md text-gray-800">{product.brand}</p>
                 </div>
             
-                {/* Categories */}
                 <div className="mt-4">
                   <span className="text-sm font-semibold text-gray-600">Categories:</span>
                   <p className="text-md text-gray-800">{product.categories.join(', ')}</p>
                 </div>
             
-                {/* Creation Date */}
                 <div className="mt-4">
                   <span className="text-sm font-semibold text-gray-600">Created At:</span>
                   <p className="text-md text-gray-800">{new Date(product.createdAt).toLocaleDateString()}</p>
                 </div>
             
-                {/* Product Type */}
                 <div className="mt-4">
                   <span className="text-sm font-semibold text-gray-600">Product Type:</span>
                   <p className="text-md text-gray-800">{product.productType}</p>
                 </div>
             
-                {/* Quantity Available */}
                 <div className="mt-4">
                   <span className="text-sm font-semibold text-gray-600">Quantity Available:</span>
                   <p className="text-md text-gray-800">{product.quantity} units</p>
                 </div>
             
-                {/* Price */}
                 <div className="mt-4">
                   <span className="text-sm font-semibold text-gray-600">Price:</span>
                   <p className="text-md font-semibold text-gray-800">₹{product.price}</p>
@@ -1353,7 +1890,7 @@ useEffect(() => {
                   <p className="text-green-600 text-sm font-semibold mb-3">
                     GET {deal.price} % off
                   </p>
-                  <button onClick={() => handleAddToCart(deal)} className="bg-teal-500 text-white font-semibold py-2 px-4 rounded w-full hover:bg-teal-600">
+                  <button onClick={() => handleAddToCart2(deal)} className="bg-teal-500 text-white font-semibold py-2 px-4 rounded w-full hover:bg-teal-600">
                     ADD TO CART
                   </button>
                 </div>
@@ -1362,13 +1899,12 @@ useEffect(() => {
           </Slider>
         </div>
       </div>
+      ) : <Loader /> }
     </>
   );
 };
 
 export default ProductDetails;
-
-
 
 
 

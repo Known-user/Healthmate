@@ -3,30 +3,23 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import Description from "./pages/Description";
-import Cart from "./pages/Cart";
 import "font-awesome/css/font-awesome.min.css";
-import ProductPage from "./pages/ProductPage";
-import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Products from "./components/Products";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from "react-hot-toast";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ProductDetails from "./pages/ProductDetails";
 import Navbar from "./components/Navbar";
-import Spline3D from "./components/Spline3D";
-import ProductGallery from "./components/ProducyGallery";
 import ProductHeader from "./components/ProductHeader";
-import PaymentForm from "./components/PaymentForm";
 import AuthPage from "./pages/AuthPage";
 import Chatbot from "./pages/Chatbot";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminLogin from "./pages/AdminLogin";
+import Search from "./pages/Search";
+import OuterCard from "./pages/OuterCard";
 
 const products = [
   {
@@ -111,12 +104,12 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/home" element={<Home />} />
-          {/* <Route exact path='/woman care' element={<ProductHeader key="woman" head="Woman Care"/>} />
-            <Route exact path='/baby care' element={<ProductHeader key="baby" head="Baby Care"/>} /> */}
-          <Route exact path="/payment" element={<PaymentForm />} />
-          <Route exact path="/cart" element={<Cart />} />
+          <Route exact path="/cart" element={<OuterCard />} />
           <Route exact path="/description" element={<ProductDetails />} />
-          <Route exact path="/admin" element={<AdminLogin />} />
+          <Route exact path="/adminlogin" element={<AdminLogin />} />
+          <Route exact path="/admindashboard" element={<AdminDashboard />} />
+          <Route exact path="/login" element={<AuthPage />} />
+          <Route exact path="/search" element={<Search />} />
           {categories.map((category, index) => (
             <Route
               key={index}
@@ -132,7 +125,7 @@ const App = () => {
           ))}
         </Routes>
         <Footer />
-        {/* <AdminDashboard/> */}
+        <Toaster/>
       </Router>
       <Chatbot/>
     </>

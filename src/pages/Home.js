@@ -11,11 +11,11 @@ function Home() {
     <Header />
     <Brands />
     <Discount />
-    <LimitedTimeDeals/>
     <Special />
-    
+    <LimitedTimeDeals/>
     </>
   )
 }
 
 export default Home
+

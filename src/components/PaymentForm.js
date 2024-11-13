@@ -137,7 +137,7 @@
 //                                                                            BEST CODE
 import React, { useEffect, useState } from "react";
 
-function PaymentForm() {
+function PaymentForm({handleStepChange}) {
   const [cardNumber, setCardNumber] = useState(["", "", "", ""]);
   const [holderName, setHolderName] = useState("");
   const [expiryMonth, setExpiryMonth] = useState("");
@@ -194,8 +194,8 @@ function PaymentForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#e5f3ff]">
-      <div className="bg-white relative rounded-2xl shadow-2xl p-8 flex w-[850px]">
+    <div className="flex justify-center min-h-[calc(100vh-10vh)] pt-20 bg-[#e5f3ff]">
+      <div className="bg-white relative h-fit rounded-2xl shadow-2xl p-8 flex w-[850px]">
         <div className="close-btn pointer flex-center p-sm absolute top-0 right-0 p-4">
           <i className="fa fa-xmark text-gray-500 fa-lg"></i>
         </div>
@@ -378,7 +378,7 @@ function PaymentForm() {
           </div>
 
           {/* Pay Now Button */}
-          <button className="w-full py-3 mt-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">
+          <button onClick={() => handleStepChange("summary")} className="w-full py-3 mt-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">
             Pay Now
           </button>
         </div>

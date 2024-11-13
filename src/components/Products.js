@@ -215,9 +215,12 @@
 
 
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const ProductGrid = ({ product }) => {
   const { title, price, salePrice, image1, image2 } = product;
+  const dispatch = useDispatch();
 
   const [isWishlistItemHovered, setIsWishlistItemHovered] = React.useState(false);
 
@@ -270,29 +273,29 @@ const ProductGrid = ({ product }) => {
         </a>
         <ul className="absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 transition-all duration-300 ease-linear opacity-0 group-hover:bottom-10 group-hover:opacity-100 w-[170px] p-0 list-none product-links">
           <li className="inline-block mx-[2px]">
-            <a
-              href="#"
+            <Link
+              to="/description" onClick={() => localStorage.setItem('productId', product.id)} 
               className="w-[48px] h-[48px] bg-blue-900 text-white text-[16px] leading-[48px] rounded-full transition-colors duration-300 ease-linear hover:bg-gray-800 flex items-center justify-center"
             >
               <i className="fa fa-search"></i>
-            </a>
+            </Link>
           </li>
           <li className="inline-block mx-[2px]">
-            <a
-              href="#"
-              className="w-[48px] h-[48px] bg-blue-900 text-white text-[16px] leading-[48px] rounded-full transition-colors duration-300 ease-linear hover:bg-gray-800 flex items-center justify-center"
+            <div
+              onClick={() => dispatch({ type: 'CART_DATA', payload: product })}
+              className="w-[48px] h-[48px] z-[99999] relative bg-blue-900 text-white text-[16px] leading-[48px] rounded-full transition-colors duration-300 ease-linear hover:bg-gray-800 flex items-center justify-center"
             >
               <i className="fas fa-shopping-cart"></i>
-            </a>
+            </div>
           </li>
-          <li className="inline-block mx-[2px]">
+          {/* <li className="inline-block mx-[2px]">
             <a
               href="#"
               className="w-[48px] h-[48px] bg-blue-900 text-white text-[16px] leading-[48px] rounded-full transition-colors duration-300 ease-linear hover:bg-gray-800 flex items-center justify-center"
             >
               <i className="fa fa-random"></i>
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className="text-left pt-4 product-content">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ai from "../Images/ai.png";
 
 const Chatbot = () => {
   const [message, setMessage] = useState('');
@@ -59,14 +60,16 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-10 right-10 z-50">
+    <div className="fixed bottom-14 right-14 z-50">
       {/* Circle Button to open the chat */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-110"
+          className="w-32 h-32 rounded-full text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-110"
+          // className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-110"
         >
-          <span className="text-3xl">💬</span> {/* Chat bubble emoji */}
+          {/* <span className="text-3xl">💬</span>  */}
+          <img src={ai} alt="" />
         </button>
       )}
 

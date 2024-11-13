@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 function ProductHeader({ head, shead, type }) {
   const [currCategory, setCurrCategory] = useState(type);
@@ -64,31 +65,6 @@ function ProductHeader({ head, shead, type }) {
   const sortedCategories = categories.slice().sort((a, b) => {
     return a.name === currCategory ? -1 : b.name === currCategory ? 1 : 0;
   });
-  // const categories = [
-  //   { name: "Prescription Medications", count: 25 },
-  //   { name: "Over-the-Counter (OTC)", count: 15 },
-  //   { name: "Vitamins & Supplements", count: 10 },
-  //   { name: "First Aid", count: 8 },
-  //   { name: "Personal Care", count: 12 },
-  //   { name: "Health Monitoring Devices", count: 4 },
-  //   { name: "Skin Care", count: 7 },
-  //   { name: "Digestive Health", count: 5 },
-  //   { name: "Cold & Allergy", count: 6 },
-  //   { name: "Pain Relief", count: 9 },
-  // ];
-
-  // const brands = [
-  //   { name: "Pfizer", count: 20 },
-  //   { name: "Johnson & Johnson", count: 15 },
-  //   { name: "Merck", count: 10 },
-  //   { name: "Bristol-Myers Squibb", count: 5 },
-  //   { name: "AbbVie", count: 8 },
-  //   { name: "GSK", count: 12 },
-  //   { name: "Roche", count: 6 },
-  //   { name: "AstraZeneca", count: 7 },
-  //   { name: "Sanofi", count: 4 },
-  //   { name: "Novartis", count: 11 },
-  // ];
 
   const producttype = [
     { name: "capsule" },
@@ -161,6 +137,12 @@ function ProductHeader({ head, shead, type }) {
     },
     // Add more products as needed
   ];
+
+
+  const handleAddToCart = (product) => {
+    dispatch({ type: 'CART_DATA', payload: product });
+    toast.success("Added to cart!");
+  };
 
   return (
     // <div className="px-8 py-6 bg-white">
@@ -373,13 +355,15 @@ function ProductHeader({ head, shead, type }) {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {categoryData.map((product, index) => (
-                    <Link to="/description" onClick={() => dispatch({ type: 'PRODUCT', payload: product })} key={index} className="flex flex-col mb-4">
+                    <div key={index} className="flex flex-col mb-4">
                       <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
+                        <Link to="/description" onClick={() => localStorage.setItem('productId', product.id)}>
                         <img
                           className="w-full h-64 object-cover transition-transform transform hover:scale-105"
                           src={product.imageLink[0]}
                           alt="Product Image"
-                        />
+                          />
+                        </Link>
                         <div className="p-5 flex-grow flex flex-col">
                           <h3 className="text-lg font-semibold text-gray-800">
                             {product.name}
@@ -409,6 +393,7 @@ function ProductHeader({ head, shead, type }) {
                         <div className="p-4">
                           <div className="flex justify-around">
                             <button
+                            onClick={() => handleAddToCart(product)}
                               type="button"
                               className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500 transition"
                             >
@@ -436,7 +421,7 @@ function ProductHeader({ head, shead, type }) {
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   ))}
                 </div>
               </div>
